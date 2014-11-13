@@ -4672,7 +4672,7 @@
     <string name="url_copy_failed">An error occured while uploading the log to dogbin</string>
 
     <string name="custom_clock_styles" translatable="false">
-        digital,digital_bold,sammy,sammy_bold,analog
+        digital,digital_bold,sammy,sammy_bold,sammy_accent,sammy_accent_alt,analog
     </string>
 
 </resources>

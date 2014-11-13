@@ -51,6 +51,7 @@ import com.android.internal.widget.LockPatternUtils;
 import com.android.systemui.ChargingView;
 import com.android.systemui.doze.DozeLog;
 import com.android.systemui.statusbar.policy.DateView;
+import java.lang.Math;
 
 import java.util.Locale;
 
@@ -193,8 +194,8 @@ public class KeyguardStatusView extends GridLayout {
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
+        //mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+          //      getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
         // Some layouts like burmese have a different margin for the clock
         MarginLayoutParams layoutParams = (MarginLayoutParams) mClockView.getLayoutParams();
         layoutParams.bottomMargin = getResources().getDimensionPixelSize(
@@ -221,9 +222,15 @@ public class KeyguardStatusView extends GridLayout {
         } else if (mClockSelection == 1) {
             mClockView.setFormat12Hour(Html.fromHtml("<strong>h</strong>mm"));
             mClockView.setFormat24Hour(Html.fromHtml("<strong>kk</strong>mm"));
-        } else if (mClockSelection == 4) {
+        } else if (mClockSelection == 3) {
             mClockView.setFormat12Hour(Html.fromHtml("<strong>hh</strong><br>mm"));
             mClockView.setFormat24Hour(Html.fromHtml("<strong>kk</strong><br>mm"));
+         } else if (mClockSelection == 4) {
+            mClockView.setFormat12Hour(Html.fromHtml("hh<br><font color=" + getResources().getColor(R.color.sammy_minutes_accent) + ">mm</font>"));
+            mClockView.setFormat24Hour(Html.fromHtml("kk<br><font color=" + getResources().getColor(R.color.sammy_minutes_accent) + ">mm</font>"));
+        } else if (mClockSelection == 5) {
+            mClockView.setFormat12Hour(Html.fromHtml("<font color='#454545'>hh</font><br><font color=" + getResources().getColor(R.color.sammy_minutes_accent) + ">mm</font>"));
+            mClockView.setFormat24Hour(Html.fromHtml("<font color='#454545'>kk</font><br><font color=" + getResources().getColor(R.color.sammy_minutes_accent) + ">mm</font>"));
         } else {
             mClockView.setFormat12Hour("hh\nmm");
             mClockView.setFormat24Hour("kk\nmm");
@@ -335,25 +342,51 @@ public class KeyguardStatusView extends GridLayout {
         switch (mClockSelection) {
             case 0: // default digital
                 mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
+                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
+                mClockView.setLineSpacing(0,1f);
                 mAnalogClockView.setVisibility(View.GONE);
                 break;
             case 1: // digital (bold)
                 mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
+                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
+                mClockView.setLineSpacing(0,1f);
                 break;
             case 2: // sammy
                 mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
-                 break;
+                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
+                mClockView.setLineSpacing(0,1f);
+                break;
             case 3: // sammy (bold)
                 mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
                 break;
-            case 4: // analog
+            case 4: // sammy accent
+                mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
+                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.widget_sammy_accent_font_size));
+                mClockView.setLineSpacing(0,1f);
+                mAnalogClockView.setVisibility(View.GONE);
+         //       mDeadPoolClockView.setVisibility(View.GONE);
+                break;
+            case 5: // sammy accent (alt)
+                mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
+                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.widget_sammy_accent_font_size));
+                mClockView.setLineSpacing(-60f,1f);
+                 mAnalogClockView.setVisibility(View.GONE);
+            case 6: // analog
                 mAnalogClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mClockView.setVisibility(View.GONE);
-                 break;
-            default: // custom analog styles (int > 4)
+                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
+                mClockView.setLineSpacing(0,1f);
+                break;
+            default: // custom analog styles (int > 6)
                 mAnalogClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mClockView.setVisibility(View.GONE);
                 break;
@@ -406,11 +439,23 @@ public class KeyguardStatusView extends GridLayout {
                 mClockView.setSingleLine(false);
                 mClockView.setGravity(Gravity.CENTER);
                 break;
-            case 4: // analog
+             case 4: // sammy accent
+                params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+                mClockView.setSingleLine(false);
+                mAnalogClockView.unregisterReceiver();
+               // mDeadPoolClockView.unregisterReceiver();
+                break;
+            case 5: // sammy accent
+                params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+                mClockView.setSingleLine(false);
+                mAnalogClockView.unregisterReceiver();
+              //  mDeadPoolClockView.unregisterReceiver();
+                break;
+            case 6: // analog
                 mAnalogClockView.registerReceiver();
                 params.addRule(RelativeLayout.BELOW, R.id.analog_clock_view);
                 break;
-            default: // custom analog styles (int > 4)
+            default: // custom analog styles (int > 6)
                 params.addRule(RelativeLayout.BELOW, R.id.analog_clock_view);
                 mAnalogClockView.registerReceiver();
                 break;

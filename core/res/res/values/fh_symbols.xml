@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2018 FireHound
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+
+    <java-symbol type="integer" name="config_buttonBrightnessSettingDefault" />
+    <java-symbol type="bool" name="config_deviceHasVariableButtonBrightness" />
+
+    <!-- Unlink notification sound -->
+    <java-symbol type="drawable" name="ic_audio_notification_new" />
+    <java-symbol type="drawable" name="ic_audio_notification_mute_new" />
+
+    <!-- Whether device has dash charging support -->
+    <java-symbol type="bool" name="config_hasDashCharger" />
+
+    <!-- DUI -->
+    <java-symbol type="anim" name="du_app_in" />
+    <java-symbol type="anim" name="du_app_out" />
+
+    <!-- Hardware key binding -->
+    <java-symbol type="integer" name="config_deviceHardwareKeys" />
+
+    <!-- Screenrecord -->
+    <java-symbol type="bool" name="config_enableScreenrecordChord" />
+
+    <!-- sensor block per-package -->
+    <java-symbol type="array" name="config_blockPackagesSensorDrain" />
+
+    <!-- Pocket Lock -->
+    <java-symbol type="layout" name="pocket_lock_view_layout" />
+    <java-symbol type="id" name="pocket_hint_container" />
+    <java-symbol type="id" name="pocket_hint_image" />
+    <java-symbol type="id" name="pocket_hint_message" />
+
+    <!-- Ambient music ticker -->
+    <java-symbol type="bool" name="config_canForceDozeNotifications" />
+
+    <!-- Toast Animation -->
+    <java-symbol type="style" name="Animation.Toast.Fade" />
+    <java-symbol type="style" name="Animation.Toast.SlideRight" />
+    <java-symbol type="style" name="Animation.Toast.SlideLeft" />
+    <java-symbol type="style" name="Animation.Toast.Xylon" />
+    <java-symbol type="style" name="Animation.Toast.Toko" />
+    <java-symbol type="style" name="Animation.Toast.Tn" />
+    <java-symbol type="style" name="Animation.Toast.Honami" />
+    <java-symbol type="style" name="Animation.Toast.FastFade" />
+    <java-symbol type="style" name="Animation.Toast.GrowFade" />
+    <java-symbol type="style" name="Animation.Toast.GrowFadeCenter" />
+    <java-symbol type="style" name="Animation.Toast.GrowFadeBottom" />
+    <java-symbol type="style" name="Animation.Toast.Translucent" />
+    <java-symbol type="style" name="Animation.Toast.SlideRightLeft" />
+    <java-symbol type="style" name="Animation.Toast.SlideLeftRight" />
+
+    <!-- Dynamic Navbar -->
+    <java-symbol type="color" name="input_method_navigation_guard_dynamic" />
+
+    <!-- Themes -->
+    <java-symbol type="color" name="updater_snackbar_text_color" />
+
+    <!-- Whether the device supports Smart Pixels -->
+    <java-symbol type="bool" name="config_enableSmartPixels" />
+
+    <!-- Whether the device supports hardware keys -->
+    <java-symbol type="bool" name="config_hardwareKeysPresent" />
+
+  <!-- Settings icon tint color -->
+  <java-symbol type="color" name="settings_icon_tint_color" />
+
+    <!-- EdgeGesture service -->
+    <java-symbol type="dimen" name="edge_gesture_trigger_distance" />
+    <java-symbol type="dimen" name="edge_gesture_perpendicular_distance" />
+    <java-symbol type="dimen" name="edge_gesture_trigger_thickness" />
+
+    <!-- On-The-Go -->
+    <java-symbol type="drawable" name="ic_lock_onthego" />
+
+</resources>

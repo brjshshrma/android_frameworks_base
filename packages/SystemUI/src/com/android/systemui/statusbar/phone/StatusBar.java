@@ -952,6 +952,7 @@ public class StatusBar extends SystemUI implements DemoMode,
    private static final int AMBIENT_RECOGNITION_INTERVAL = 120000;
    /* Interval indicating the max recording time. Default is 19 seconds */
    private static final int AMBIENT_RECOGNITION_INTERVAL_MAX = 19000;
+   private boolean mLockscreenMediaMetadata;
 
     @Override
     public void start() {
@@ -2736,7 +2737,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
 
         Drawable artworkDrawable = null;
-        if (mMediaMetadata != null && mShowMediaMetadata) {
+        if (mMediaMetadata != null && mLockscreenMediaMetadata) {
+
             Bitmap artworkBitmap = null;
             artworkBitmap = mMediaMetadata.getBitmap(MediaMetadata.METADATA_KEY_ART);
             if (artworkBitmap == null) {
@@ -6492,6 +6494,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.RECENTS_ICON_PACK),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_MEDIA_METADATA),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -6525,6 +6530,8 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateQsPanelResources();
             updateBatterySettings();
             updateRecentsIconPack();
+            setLockscreenMediaMetadata();
+
         }
     }
 
@@ -6572,6 +6579,12 @@ public class StatusBar extends SystemUI implements DemoMode,
         mRecents.resetIconCache();
     }
                 
+
+    private void setLockscreenMediaMetadata() {
+        mLockscreenMediaMetadata = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.LOCKSCREEN_MEDIA_METADATA, 0, UserHandle.USER_CURRENT) == 1;
+    }
+
     private RemoteViews.OnClickHandler mOnClickHandler = new RemoteViews.OnClickHandler() {
 
         @Override

@@ -410,7 +410,8 @@ public class StatusBar extends SystemUI implements DemoMode,
             "lineagesystem:" + LineageSettings.System.STATUS_BAR_BRIGHTNESS_CONTROL;
     private static final String LOCKSCREEN_MEDIA_METADATA =
             "lineagesecure:" + LineageSettings.Secure.LOCKSCREEN_MEDIA_METADATA;
-
+    private static final String NAVBAR_DYNAMIC =
+            "system:" + Settings.System.NAVBAR_DYNAMIC;
     static {
         boolean onlyCoreApps;
         boolean freeformWindowManagement;
@@ -1137,9 +1138,9 @@ public class StatusBar extends SystemUI implements DemoMode,
         Dependency.get(TunerService.class).addTunable(this,
                 SCREEN_BRIGHTNESS_MODE,
                 STATUS_BAR_BRIGHTNESS_CONTROL,
-                LOCKSCREEN_MEDIA_METADATA);
-
-        // Lastly, call to the icon policy to install/update all the icons.
+                LOCKSCREEN_MEDIA_METADATA,
+                NAVBAR_DYNAMIC);
+       // Lastly, call to the icon policy to install/update all the icons.
         mIconPolicy = new PhoneStatusBarPolicy(mContext, mIconController);
         mSettingsObserver.onChange(false); // set up
 
@@ -8172,6 +8173,11 @@ public class StatusBar extends SystemUI implements DemoMode,
                 break;
             case LOCKSCREEN_MEDIA_METADATA:
                 mShowMediaMetadata = newValue == null || Integer.parseInt(newValue) == 1;
+                break;
+            case NAVBAR_DYNAMIC:
+                if (mNavigationBar != null && mNavigationBarView != null) {
+                    mNavigationBar.updateNavbarOverlay(mContext.getResources());
+                }
                 break;
             default:
                 break;

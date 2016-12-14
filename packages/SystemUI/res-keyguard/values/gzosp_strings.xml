@@ -14,8 +14,5 @@
      limitations under the License.
 -->
 <resources>
-
-<!-- Ambient Display Pixel-Like string -->
 <string name="ambientmusic_songinfo">%s by %s</string>
-
 </resources>

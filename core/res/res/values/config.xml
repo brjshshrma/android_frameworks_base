@@ -3151,5 +3151,12 @@
          booted.  -->
     <integer name="config_stableDeviceDisplayWidth">-1</integer>
     <integer name="config_stableDeviceDisplayHeight">-1</integer>
+
+    <!-- Whether Keypress Boost is enabled -->
+    <bool name="config_enableKeypressBoost">false</bool>
+ 
+    <!-- Boost parameters which get passed to QPerformance -->
+    <integer-array name="keypressboost_strong_param_value"/>
+    <integer-array name="keypressboost_weak_param_value"/>
    
 </resources>

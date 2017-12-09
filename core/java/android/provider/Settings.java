@@ -3993,8 +3993,14 @@ public final class Settings {
          * @hide
          */
        // public static final String HIDE_LOCKSCREEN_ALARM = "hide_lockscreen_alarm";		
+         
+        /**
+         * Whether to enable double tap to sleep for smartbar
+         * @hide
+         */
+        public static final String SMARTBAR_DOUBLETAP_SLEEP = "smartbar_doubletap_sleep";
 
- /**
+         /**
          * @hide
          */
         public static final String NAVIGATION_BAR_HEIGHT_LANDSCAPE = "navigation_bar_height_landscape";

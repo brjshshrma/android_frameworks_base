@@ -2060,4 +2060,7 @@
     <!-- Volte icon -->
     <string name="status_bar_volte">VoLTE</string>
 
+    <!-- Roaming -->
+    <string name="status_bar_roaming">Roaming</string>
+
 </resources>

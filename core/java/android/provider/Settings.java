@@ -4264,6 +4264,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_DISPLAY);
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_STYLE);
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_FORMAT);
+
         }
 
         /**
@@ -7191,6 +7192,13 @@ public final class Settings {
          */
         public static final String MANAGED_PROFILE_CONTACT_REMOTE_SEARCH =
                 "managed_profile_contact_remote_search";
+
+        /**
+         * Whether Ambient Play is shown on the lockscreen
+         *
+         * @hide
+         */
+        public static final String AMBIENT_PLAY_LOCKSCREEN = "ambient_play_lockscreen";
 
         /**
          * Whether or not the automatic storage manager is enabled and should run on the device.

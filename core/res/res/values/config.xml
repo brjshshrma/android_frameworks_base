@@ -3093,4 +3093,7 @@
          booted.  -->
     <integer name="config_stableDeviceDisplayWidth">-1</integer>
     <integer name="config_stableDeviceDisplayHeight">-1</integer>
+
+   <bool name="config_showNavigationBar">true</bool>
+   
 </resources>

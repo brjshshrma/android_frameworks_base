@@ -470,9 +470,9 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
             addedKeys.add(actionKey);
         }
 
-        if (mEmergencyAffordanceManager.needsEmergencyAffordance() && !mIsRestartMenu) {
+     /* if (mEmergencyAffordanceManager.needsEmergencyAffordance() && !mIsRestartMenu) {
             mItems.add(getEmergencyAction());
-        }
+        }*/
 
         mAdapter = new MyAdapter();
 

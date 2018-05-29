@@ -18,6 +18,7 @@ package com.android.keyguard;
 
 import android.app.ActivityManager;
 import android.app.AlarmManager;
+import android.view.Gravity;
 import android.content.Context;
 import android.content.ContentResolver;
 import android.content.res.ColorStateList;
@@ -218,7 +219,7 @@ public class KeyguardStatusView extends GridLayout {
             mClockView.setFormat12Hour(Patterns.clockView12);
             mClockView.setFormat24Hour(Patterns.clockView24);
         } else if (mClockSelection == 1) {
-            mClockView.setFormat12Hour(Html.fromHtml("<strong>hh</strong>mm"));
+            mClockView.setFormat12Hour(Html.fromHtml("<strong>h</strong>mm"));
             mClockView.setFormat24Hour(Html.fromHtml("<strong>kk</strong>mm"));
         } else if (mClockSelection == 4) {
             mClockView.setFormat12Hour(Html.fromHtml("<strong>hh</strong><br>mm"));
@@ -323,7 +324,6 @@ public class KeyguardStatusView extends GridLayout {
          private void updateVisibilities() {
         switch (mClockSelection) {
             case 0: // default digital
-            default:
                 mClockView.setVisibility(mShowClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
                 break;
@@ -331,17 +331,21 @@ public class KeyguardStatusView extends GridLayout {
                 mClockView.setVisibility(mShowClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
                 break;
-            case 2: // analog
+            case 2: // sammy
+                mClockView.setVisibility(mShowClock ? View.VISIBLE : View.GONE);
+                mAnalogClockView.setVisibility(View.GONE);
+                 break;
+            case 3: // sammy (bold)
+                mClockView.setVisibility(mShowClock ? View.VISIBLE : View.GONE);
+                mAnalogClockView.setVisibility(View.GONE);
+                break;
+            case 4: // analog
                 mAnalogClockView.setVisibility(mShowClock ? View.VISIBLE : View.GONE);
                 mClockView.setVisibility(View.GONE);
                  break;
-            case 3: // sammy
-                mClockView.setVisibility(mShowClock ? View.VISIBLE : View.GONE);
-                mAnalogClockView.setVisibility(View.GONE);
-                 break;
-            case 4: // sammy (bold)
-                mClockView.setVisibility(mShowClock ? View.VISIBLE : View.GONE);
-                mAnalogClockView.setVisibility(View.GONE);
+            default: // custom analog styles (int > 4)
+                mAnalogClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE : View.GONE) : View.VISIBLE);
+                mClockView.setVisibility(View.GONE);
                 break;
         }
 
@@ -369,29 +373,36 @@ public class KeyguardStatusView extends GridLayout {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mKeyguardStatusArea.getLayoutParams();
         switch (mClockSelection) {
             case 0: // default digital
-            default:
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(true);
                 mAnalogClockView.unregisterReceiver();
+                mClockView.setGravity(Gravity.CENTER);
                 break;
             case 1: // digital (bold)
                 mAnalogClockView.unregisterReceiver();
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(true);
+                mClockView.setGravity(Gravity.CENTER);
                 break;
-            case 2: // analog
-                mAnalogClockView.registerReceiver();
-                params.addRule(RelativeLayout.BELOW, R.id.analog_clock_view);
-                break;
-            case 3: // sammy
+             case 2: // sammy
                 mAnalogClockView.unregisterReceiver();                      
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(false);
+                mClockView.setGravity(Gravity.CENTER);
                 break;
-            case 4: // sammy (bold)
+            case 3: // sammy (bold)
                 mAnalogClockView.unregisterReceiver();               
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(false);
+                mClockView.setGravity(Gravity.CENTER);
+                break;
+            case 4: // analog
+                mAnalogClockView.registerReceiver();
+                params.addRule(RelativeLayout.BELOW, R.id.analog_clock_view);
+                break;
+            default: // custom analog styles (int > 4)
+                params.addRule(RelativeLayout.BELOW, R.id.analog_clock_view);
+                mAnalogClockView.registerReceiver();
                 break;
         }
 

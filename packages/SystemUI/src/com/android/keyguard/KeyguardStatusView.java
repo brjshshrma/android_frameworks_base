@@ -34,6 +34,7 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.util.Log;
 import android.util.Slog;
 import android.util.TypedValue;
@@ -351,12 +352,15 @@ public class KeyguardStatusView extends GridLayout {
                 mAnalogClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(true);
-                break;
+                mClockView.setGravity(Gravity.CENTER);
+                mAnalogClockView.unregisterReceiver();
+               break;
             case 1: // digital (bold)
                 mClockView.setVisibility(View.VISIBLE);
                 mAnalogClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(true);
+                mClockView.setGravity(Gravity.CENTER);
                 break;
             case 2: // analog
                 mAnalogClockView.setVisibility(View.VISIBLE);
@@ -368,12 +372,16 @@ public class KeyguardStatusView extends GridLayout {
                 mAnalogClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(false);
+                mClockView.setGravity(Gravity.CENTER);
+                mAnalogClockView.unregisterReceiver();
                 break;
             case 4: // sammy (bold)
                 mClockView.setVisibility( View.VISIBLE);
                 mAnalogClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(false);
+                mClockView.setGravity(Gravity.CENTER);
+                mAnalogClockView.unregisterReceiver();
                 break;
         }
 

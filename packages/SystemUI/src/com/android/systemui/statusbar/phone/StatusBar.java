@@ -6327,7 +6327,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
         if (mQuickStatusBarHeader != null) {
             mQuickStatusBarHeader.updateBatterySettings();
->>>>>>> 5bd9ad3... Battery: use SB observer to update everything and not when attaching views
         }
     }
 

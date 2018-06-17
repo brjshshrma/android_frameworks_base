@@ -1,7 +1,4 @@
-<!--
-     Copyright (C) 2017 GZOSP
-
-     Licensed under the Apache License, Version 2.0 (the "License");
+<!--     der the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
 
@@ -18,10 +15,12 @@
      <!-- Our custom clock values -->
      <dimen name="widget_sammy_accent_font_size">62dp</dimen>
 
-      <!-- the size for all the clock sizes -->
+    <!-- the size for all the clock sizes -->
     <dimen name="widget_clock_shishu_size">175dp</dimen>
+
      <!-- Our custom clock values -->
-     <dimen name="widget_shishu_accent_font_size">65dp</dimen>
+     <dimen name="widget_shishu_accent_font_size">45dp</dimen>
 
-
+     <!-- Font size for inmensity clock -->
+     <dimen name="widget_shishu_inmensity_font_size">40dp</dimen>
 </resources>

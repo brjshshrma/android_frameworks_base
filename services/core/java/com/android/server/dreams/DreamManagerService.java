@@ -181,12 +181,6 @@ public final class DreamManagerService extends SystemService {
         stopDreamInternal(false /*immediate*/);
     }
 
-    private boolean isDozingInternal() {
-        synchronized (mLock) {
-            return mCurrentDreamIsDozing;
-        }
-    }
-
     private void finishSelfInternal(IBinder token, boolean immediate) {
         if (DEBUG) {
             Slog.d(TAG, "Dream finished: " + token + ", immediate=" + immediate);
@@ -547,19 +541,6 @@ public final class DreamManagerService extends SystemService {
             }
         }
 
-
-        @Override // Binder call
-        public boolean isDozing() {
-            checkPermission(android.Manifest.permission.READ_DREAM_STATE);
-
-            final long ident = Binder.clearCallingIdentity();
-            try {
-                return isDozingInternal();
-            } finally {
-                Binder.restoreCallingIdentity(ident);
-            }
-        }
-
         @Override // Binder call
         public void dream() {
             checkPermission(android.Manifest.permission.WRITE_DREAM_STATE);
@@ -668,11 +649,6 @@ public final class DreamManagerService extends SystemService {
         @Override
         public boolean isDreaming() {
             return isDreamingInternal();
-        }
-
-        @Override
-        public boolean isDozing() {
-            return isDozingInternal();
         }
     }
 

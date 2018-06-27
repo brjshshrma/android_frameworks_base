@@ -371,9 +371,6 @@ public final class ShutdownThread extends Thread {
 
         WindowManager.LayoutParams attrs = pd.getWindow().getAttributes();
 
-        attrs.alpha = setRebootDialogAlpha(context);
-        pd.getWindow().setDimAmount(setRebootDialogDim(context));
-
         if (!themeShutdownAnimationExists()) pd.show();
         return pd;
     }

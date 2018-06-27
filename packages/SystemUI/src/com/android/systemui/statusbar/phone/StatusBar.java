@@ -721,7 +721,8 @@ public class StatusBar extends SystemUI implements DemoMode,
             if (DEBUG_MEDIA) Log.v(TAG, "DEBUG_MEDIA: onMetadataChanged: " + metadata);
             mMediaMetadata = metadata;
             updateMediaMetaData(true, true);
-<<<<<<< HEAD
+            if (mTickerEnabled == 2) {
+                tickTrackInfo();       
             setMediaPlaying();
         }
 
@@ -733,22 +734,10 @@ public class StatusBar extends SystemUI implements DemoMode,
     };
 
     public void setMediaPlaying() {
-=======
-            if (mTickerEnabled == 2) {
-                tickTrackInfo();
-            }
-        }
-    };
-
-    private void tickTrackInfo() {
-        ArrayList<Entry> activeNotifications = mNotificationData.getActiveNotifications();
-        int N = activeNotifications.size();
->>>>>>> 5b0a396... Statusbar ticker refactoring
-        if (PlaybackState.STATE_PLAYING ==
+                    if (PlaybackState.STATE_PLAYING ==
                 getMediaControllerPlaybackState(mMediaController)
                 || PlaybackState.STATE_BUFFERING ==
                 getMediaControllerPlaybackState(mMediaController)) {
-<<<<<<< HEAD
             tickTrackInfo(mMediaController);
         } else {
             if (isAmbientContainerAvailable()) {
@@ -757,6 +746,20 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     }
 
+    private void tickTrackInfo() {
+        ArrayList<Entry> activeNotifications = mNotificationData.getActiveNotifications();
+        int N = activeNotifications.size();
+       final String pkg = mMediaController.getPackageName();
+            for (int i = 0; i < N; i++) {
+                final Entry entry = activeNotifications.get(i);
+                if (entry.notification.getPackageName().equals(pkg)) {
+                    tick(entry.notification, true, true, mMediaMetadata);
+                    break;
+                }
+            }
+        }
+    }
+        
     private void tickTrackInfo(MediaController mc) {
         ArrayList<Entry> activeNotifications = mNotificationData.getAllNotifications();
         int N = activeNotifications.size();
@@ -768,28 +771,16 @@ public class StatusBar extends SystemUI implements DemoMode,
                     ((AmbientIndicationContainer)mAmbientIndicationContainer).setIndication(mMediaMetadata);
                 }
                 break;
-=======
-            final String pkg = mMediaController.getPackageName();
-            for (int i = 0; i < N; i++) {
-                final Entry entry = activeNotifications.get(i);
-                if (entry.notification.getPackageName().equals(pkg)) {
-                    tick(entry.notification, true, true, mMediaMetadata);
-                    break;
-                }
->>>>>>> 5b0a396... Statusbar ticker refactoring
             }
         }
     }
 
-<<<<<<< HEAD
     public void triggerAmbientForMedia() {
         if (mAmbientMediaPlaying == 2 || mAmbientMediaPlaying == 3) {
             mDozeServiceHost.fireNotificationMedia();
         }
     }
 
-=======
->>>>>>> 5b0a396... Statusbar ticker refactoring
     private final OnChildLocationsChangedListener mOnChildLocationsChangedListener =
             new OnChildLocationsChangedListener() {
         @Override
@@ -6527,24 +6518,15 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_SHOW_TICKER))) {
                 updateTickerSettings();
-<<<<<<< HEAD
          }
-=======
-                initTickerView();
-            }
->>>>>>> 5b0a396... Statusbar ticker refactoring
-        }
+       }
 
         public void update() {
             setFpToDismissNotifications();
             setForceAmbient();
             updateQsPanelResources();
-<<<<<<< HEAD
             updateBatterySettings();
             updateTickerSettings();
-=======
-            setUseLessBoringHeadsUp();
->>>>>>> 5b0a396... Statusbar ticker refactoring
         }
     }
 

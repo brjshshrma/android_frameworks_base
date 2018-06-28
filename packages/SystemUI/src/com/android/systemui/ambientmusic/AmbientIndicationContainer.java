@@ -35,7 +35,6 @@ public class AmbientIndicationContainer extends AutoReinflateContainer {
     private TextView mTrackLenght;
     private Context mContext;
     private MediaMetadata mMediaMetaData;
-    private String mMediaText;
     private boolean mForcedMediaDoze;
     private Handler mHandler;
     private boolean mInfoAvailable;
@@ -50,7 +49,7 @@ public class AmbientIndicationContainer extends AutoReinflateContainer {
     }
 
     public void hideIndication() {
-        setIndication(null, null);
+        setIndication(null);
     }
 
     public void initializeView(StatusBar statusBar, Handler handler) {
@@ -64,7 +63,7 @@ public class AmbientIndicationContainer extends AutoReinflateContainer {
         mText = (TextView)findViewById(R.id.ambient_indication_text);
         mTrackLenght = (TextView)findViewById(R.id.ambient_indication_track_lenght);
         mIcon = (ImageView)findViewById(R.id.ambient_indication_icon);
-        setIndication(mMediaMetaData, mMediaText);
+        setIndication(mMediaMetaData);
     }
 
     public void setPulsing(boolean pulsing) {
@@ -112,7 +111,8 @@ public class AmbientIndicationContainer extends AutoReinflateContainer {
         this.setLayoutParams(lp);
     }
 
-    public void setIndication(MediaMetadata mediaMetaData, String notificationText) {
+    public void setIndication(MediaMetadata mediaMetaData) {
+        Resources res = getResources();
         CharSequence charSequence = null;
         if (mediaMetaData != null) {
             CharSequence artist = mediaMetaData.getText(MediaMetadata.METADATA_KEY_ARTIST);
@@ -140,8 +140,6 @@ public class AmbientIndicationContainer extends AutoReinflateContainer {
         mInfoToSet = null;
         if (!TextUtils.isEmpty(charSequence)) {
             mInfoToSet = charSequence.toString();
-        } else if (!TextUtils.isEmpty(notificationText)) {
-            mInfoToSet = notificationText;
         }
 
         mInfoAvailable = mInfoToSet != null;
@@ -149,7 +147,6 @@ public class AmbientIndicationContainer extends AutoReinflateContainer {
             mText.setText(mInfoToSet);
             mTrackLenght.setText(mLengthInfo);
             mMediaMetaData = mediaMetaData;
-            mMediaText = notificationText;
             if (mPulsing) {
                 mAmbientIndication.setVisibility(View.VISIBLE);
             }

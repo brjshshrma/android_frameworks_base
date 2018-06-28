@@ -3995,7 +3995,13 @@ public final class Settings {
          */
         public static final String FINGERPRINT_SUCCESS_VIB = "fingerprint_success_vib";
 
-                /**
+         /**
+         * Use EdgeGesture Service for system gestures in PhoneWindowManager
+         * @hide
+         */
+        public static final String USE_EDGE_SERVICE_FOR_GESTURES = "edge_service_for_gestures";
+
+         /**
          * Whether to use edge gestures to navigate.
          * @hide
          */

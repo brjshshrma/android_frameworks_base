@@ -17,8 +17,7 @@
 package com.android.systemui.recents.views;
 
 import static android.app.ActivityManager.StackId.INVALID_STACK_ID;
-import android.app.ActivityManager;
-import android.app.ActivityManager.MemoryInfo;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -54,7 +53,6 @@ import android.view.ViewDebug;
 import android.view.ViewPropertyAnimator;
 import android.view.Window;
 import android.view.WindowInsets;
-import android.widget.ProgressBar;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.ImageButton;
@@ -130,10 +128,6 @@ public class RecentsView extends FrameLayout {
     private boolean showClearAllRecents;
     View mFloatingButton;
     View mClearRecents;
-    private boolean mShowMemDisplay;
-    private TextView mMemText;
-    private ProgressBar mMemBar;
-    private ActivityManager mAm;
     private int clearRecentsLocation;
 
     private boolean mAwaitingFirstLayout = true;
@@ -149,10 +143,7 @@ public class RecentsView extends FrameLayout {
     private ValueAnimator mBackgroundScrimAnimator;
     private Point mTmpDisplaySize = new Point();
 
-   private static final String SYSTEMUI_RECENTS_MEM_DISPLAY =
-     "system:" + Settings.System.SYSTEMUI_RECENTS_MEM_DISPLAY; 
-
-   private final AnimatorUpdateListener mUpdateBackgroundScrimAlpha = (animation) -> {
+    private final AnimatorUpdateListener mUpdateBackgroundScrimAlpha = (animation) -> {
         int alpha = (Integer) animation.getAnimatedValue();
         mBackgroundScrim.setAlpha(alpha);
         mMultiWindowBackgroundScrim.setAlpha(alpha);
@@ -210,8 +201,7 @@ public class RecentsView extends FrameLayout {
         }
 
         reevaluateStyles();
-        mAm = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
-     }
+    }
 
     public void reevaluateStyles() {
         int textColor = Utils.getColorAttr(mContext, R.attr.wallpaperTextColor);
@@ -495,12 +485,8 @@ public class RecentsView extends FrameLayout {
         mClearRecents.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             EventBus.getDefault().send(new DismissAllTaskViewsEvent());
-            updateMemoryStatus(); 
-           }
+            }
         });
-       mMemText = (TextView) ((View)getParent()).findViewById(R.id.recents_memory_text);
-       mMemBar = (ProgressBar) ((View)getParent()).findViewById(R.id.recents_memory_bar);
-
         super.onAttachedToWindow();
     }
 
@@ -511,41 +497,6 @@ public class RecentsView extends FrameLayout {
         EventBus.getDefault().unregister(mTouchHandler);
         mSettingsObserver.unobserve();
     }
-  @Override
-    public void onTuningChanged(String key, String newValue) {
-        switch (key) {
-            case SYSTEMUI_RECENTS_MEM_DISPLAY:
-                mShowMemDisplay =
-                        newValue != null && Integer.parseInt(newValue) == 1;
-                setClearRecents();
-                showMemDisplay();
-                break;
-            default:
-                break;
-        }
-
-    private void showMemDisplay() {
-        if (mShowMemDisplay) {
-            mMemBar.setVisibility(View.VISIBLE);
-            mMemText.setVisibility(View.VISIBLE);
-        } else {
-            mMemBar.setVisibility(View.GONE);
-            mMemText.setVisibility(View.GONE);
-        }
-    }
-
-    public void updateMemoryStatus() {
-        if (!mShowMemDisplay) return;
-
-        MemoryInfo memInfo = new MemoryInfo();
-        mAm.getMemoryInfo(memInfo);
-        int available = (int)(memInfo.availMem / 1048576L);
-        int max = (int)(memInfo.totalMem / 1048576L);
-        mMemText.setText("Free RAM: " + String.valueOf(available) + "MB");
-        mMemBar.setMax(max);
-        mMemBar.setProgress(available);
-}
-
 
     /**
      * This is called with the full size of the window since we are handling our own insets.
@@ -557,7 +508,6 @@ public class RecentsView extends FrameLayout {
 
         if (mTaskStackView.getVisibility() != GONE) {
             mTaskStackView.measure(widthMeasureSpec, heightMeasureSpec);
-            updateMemoryStatus();
         }
 
         // Measure the empty view to the full size of the screen
@@ -623,11 +573,6 @@ public class RecentsView extends FrameLayout {
     }
 
     /**
-
-
-
-
-
      * This is called with the full size of the window since we are handling our own insets.
      */
     @Override

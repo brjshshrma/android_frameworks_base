@@ -44,4 +44,10 @@
     <!-- True if the notification's dynamic app icon/title tint should be optimised for dark
     backgrounds (requires config_allowNotificationIconTextTinting to be true)-->
     <bool name="config_useDarkBgNotificationIconTextTinting">false</bool>
+
+    <!-- EdgeGesture service -->
+    <java-symbol type="dimen" name="edge_gesture_trigger_distance" />
+    <java-symbol type="dimen" name="edge_gesture_perpendicular_distance" />
+    <java-symbol type="dimen" name="edge_gesture_trigger_thickness" />
+
 </resources>

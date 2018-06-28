@@ -99,9 +99,7 @@ public class ImageSwitcher extends ViewSwitcher
         showNext();
     }
 
-    /**
-     * @hide
-     */
+
     public void setImageDrawableTint(Drawable drawable, int tint, boolean isGrayscale)
     {
         ImageView image = (ImageView)this.getNextView();

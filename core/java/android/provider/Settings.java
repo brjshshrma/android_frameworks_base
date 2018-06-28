@@ -4142,14 +4142,7 @@ public final class Settings {
         public static final String QS_PANEL_BG_ALPHA = "qs_panel_bg_alpha";
 
         /**
-         * Whether to show the notification ticker on the status bar
-         * @hide
-         */
-        public static final String STATUS_BAR_SHOW_TICKER = "status_bar_show_ticker";
-
-        /**
-          * show the membar in recents
-          *  @hide
+         *  @hide
           */
         public static final String SYSTEMUI_RECENTS_MEM_DISPLAY = "systemui_recents_mem_display";
 

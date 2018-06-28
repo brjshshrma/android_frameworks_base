@@ -744,7 +744,6 @@ public class StatusBar extends SystemUI implements DemoMode,
                 getMediaControllerPlaybackState(mMediaController)) {
             tickTrackInfo(mMediaController);
         } else {
-            mEntryToRefresh = null;
             if (isAmbientContainerAvailable()) {
                 ((AmbientIndicationContainer)mAmbientIndicationContainer).hideIndication();
             }
@@ -772,11 +771,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         for (int i = 0; i < N; i++) {
             final Entry entry = activeNotifications.get(i);
             if (entry.notification.getPackageName().equals(pkg)) {
-               // NotificationInflater calls async MediaNotificationProcessoron to create notification
-                // colors and when finished will trigger AsyncInflationFinished for all registered callbacks
-                // like StatusBar. From there we'll send updated colors to Pulse
-                mEntryToRefresh = entry;}
-                  if (isAmbientContainerAvailable()) {
+                if (isAmbientContainerAvailable()) {
                     ((AmbientIndicationContainer)mAmbientIndicationContainer).setIndication(mMediaMetadata);
                 }
                 break;
@@ -1997,17 +1992,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateNotificationShade();
         }
         entry.row.setLowPriorityStateUpdated(false);
-
-
-            if (mEntryToRefresh == entry) {
-            final Notification n = entry.notification.getNotification();
-            if (mTickerEnabled == 2) {
-                tick(entry.notification, true, true, mMediaMetadata);
-            }
-            if (isAmbientContainerAvailable()) {
-                ((AmbientIndicationContainer)mAmbientIndicationContainer).setIndication(mMediaMetadata);
-            }
- }
+    }
 
     private boolean shouldSuppressFullScreenIntent(String key) {
         if (isDeviceInVrMode()) {
@@ -2678,9 +2663,9 @@ public class StatusBar extends SystemUI implements DemoMode,
                         + mMediaController.getPackageName());
             }
             mMediaController.unregisterCallback(mMediaListener);
+            setMediaPlaying();
         }
         mMediaController = null;
-        setMediaPlaying();
     }
 
     private boolean sameSessions(MediaController a, MediaController b) {
@@ -6177,7 +6162,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                     }
                     setCleanLayout(mAmbientMediaPlaying == 3 ? reason : -1);
                     if (isAmbientContainerAvailable()) {
-                        ((AmbientIndicationContainer)mAmbientIndicationContainer).setPulsing(true);
+                        ((AmbientIndicationContainer)mAmbientIndicationContainer).setTickerMarquee(true);
                     }
                 }
 
@@ -6187,7 +6172,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                     setPulsing(null);
                     setCleanLayout(-1);
                     if (isAmbientContainerAvailable()) {
-                        ((AmbientIndicationContainer)mAmbientIndicationContainer).setPulsing(false);
+                        ((AmbientIndicationContainer)mAmbientIndicationContainer).setTickerMarquee(false);
                     }
                 }
 

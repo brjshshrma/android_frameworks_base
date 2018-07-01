@@ -3971,6 +3971,12 @@ public final class Settings {
         public static final String LOCKSCREEN_BATTERY_INFO = "lockscreen_battery_info";
 
         /**
+	* Whether to enable navigation bar
+        * @hide
+        */
+       public static final String NAVIGATION_BAR_ENABLED = "navigation_bar_enabled";
+	    
+	/**
          * Hide lockscreen date
          * @hide
          */

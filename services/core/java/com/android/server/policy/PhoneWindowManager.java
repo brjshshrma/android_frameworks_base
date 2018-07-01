@@ -1164,8 +1164,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.Secure.SYSTEM_NAVIGATION_KEYS_ENABLED), false, this,
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Secure.getUriFor(
-+                    Settings.System.NAVIGATION_BAR_ENABLED), false, this,
-+                    UserHandle.USER_ALL);
+                    Settings.System.NAVIGATION_BAR_ENABLED), false, this,
+                    UserHandle.USER_ALL);
             updateSettings();
         }
 

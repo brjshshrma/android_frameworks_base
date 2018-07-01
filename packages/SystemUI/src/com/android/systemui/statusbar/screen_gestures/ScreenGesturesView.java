@@ -81,8 +81,8 @@ public class ScreenGesturesView extends View {
         this.lastY = initialY;
 
         String backSettingsId = getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ?
-                Settings.Secure.EDGE_GESTURES_BACK_EDGES :
-                Settings.Secure.EDGE_GESTURES_LANDSCAPE_BACK_EDGES;
+                Settings.System.EDGE_GESTURES_BACK_EDGES :
+                Settings.System.EDGE_GESTURES_LANDSCAPE_BACK_EDGES;
         int backGestureEdgesFlag = Settings.Secure.getIntForUser(getContext().getContentResolver(),
                 backSettingsId,
                 0,
@@ -104,7 +104,7 @@ public class ScreenGesturesView extends View {
 
     private int getFeedbackStrength() {
         try {
-            return Settings.Secure.getInt(getContext().getContentResolver(), Settings.Secure.EDGE_GESTURES_FEEDBACK_DURATION);
+            return Settings.Secure.getInt(getContext().getContentResolver(), Settings.System.EDGE_GESTURES_FEEDBACK_DURATION);
         } catch (Settings.SettingNotFoundException exception) {
             return 100;
         }
@@ -112,7 +112,7 @@ public class ScreenGesturesView extends View {
 
     private int getLongpressDuration() {
         try {
-            return Settings.Secure.getInt(getContext().getContentResolver(), Settings.Secure.EDGE_GESTURES_LONG_PRESS_DURATION);
+            return Settings.Secure.getInt(getContext().getContentResolver(), Settings.System.EDGE_GESTURES_LONG_PRESS_DURATION);
         } catch (Settings.SettingNotFoundException exception) {
             return 500;
         }

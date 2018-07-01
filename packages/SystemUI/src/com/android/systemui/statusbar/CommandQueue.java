@@ -82,14 +82,15 @@ public class CommandQueue extends IStatusBar.Stub {
     private static final int MSG_TOGGLE_PANEL                  = 35 << MSG_SHIFT;
     private static final int MSG_SHOW_SHUTDOWN_UI              = 36 << MSG_SHIFT;
     private static final int MSG_SET_TOP_APP_HIDES_STATUS_BAR  = 37 << MSG_SHIFT;
-
+    private static final int MSG_TOGGLE_NAVIGATION_BAR         = 36 << MSG_SHIFT;
+    
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
     public static final int FLAG_EXCLUDE_RECENTS_PANEL = 1 << 1;
     public static final int FLAG_EXCLUDE_NOTIFICATION_PANEL = 1 << 2;
     public static final int FLAG_EXCLUDE_INPUT_METHODS_PANEL = 1 << 3;
     public static final int FLAG_EXCLUDE_COMPAT_MODE_PANEL = 1 << 4;
-
+    
     private static final String SHOW_IME_SWITCHER_KEY = "showImeSwitcherKey";
 
     private final Object mLock = new Object();
@@ -142,6 +143,7 @@ public class CommandQueue extends IStatusBar.Stub {
         default void handleSystemKey(int arg1) { }
         default void handleShowGlobalActionsMenu() { }
         default void handleShowShutdownUi(boolean isReboot, String reason, boolean rebootCustom) { }
+        default void toggleNavigationBar(boolean enable) { }
     }
 
     @VisibleForTesting
@@ -398,6 +400,13 @@ public class CommandQueue extends IStatusBar.Stub {
         }
     }
 
+     public void toggleNavigationBar(boolean enable) {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_TOGGLE_NAVIGATION_BAR);
+            mHandler.obtainMessage(MSG_TOGGLE_NAVIGATION_BAR, enable ? 1 : 0, 0, null).sendToTarget();
+        }
+    }
+    
     @Override
     public void onCameraLaunchGestureDetected(int source) {
         synchronized (mLock) {
@@ -652,6 +661,11 @@ public class CommandQueue extends IStatusBar.Stub {
                 case MSG_SET_TOP_APP_HIDES_STATUS_BAR:
                     for (int i = 0; i < mCallbacks.size(); i++) {
                         mCallbacks.get(i).setTopAppHidesStatusBar(msg.arg1 != 0);
+                    }
+                    break;                    
+                 case MSG_TOGGLE_NAVIGATION_BAR:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).toggleNavigationBar(msg.arg1 != 0);
                     }
                     break;
             }

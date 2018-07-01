@@ -1115,7 +1115,7 @@ public class StatusBar extends SystemUI implements DemoMode,
          // end old BaseStatusBar.start().
 
          mContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor(
-                Settings.Secure.EDGE_GESTURES_ENABLED), false,
+                Settings.System.EDGE_GESTURES_ENABLED), false,
                 mEdgeGesturesSettingsObserver);
 
         mMediaSessionManager
@@ -1514,7 +1514,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         reevaluateStyles();
     
         boolean edgeGesturesEnabled = Settings.Secure.getIntForUser(mContext.getContentResolver(),
-                Settings.Secure.EDGE_GESTURES_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
+                Settings.System.EDGE_GESTURES_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
         updateEdgeGestures(edgeGesturesEnabled);
     }
 
@@ -6236,7 +6236,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         @Override
         public void onChange(boolean selfChange) {
             boolean edgeGesturesEnabled = Settings.Secure.getIntForUser(mContext.getContentResolver(),
-                    Settings.Secure.EDGE_GESTURES_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
+                    Settings.System.EDGE_GESTURES_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
 
             updateEdgeGestures(edgeGesturesEnabled);
         }

@@ -53,8 +53,8 @@ public class ScreenGesturesController {
             if (gesturesView != null) {
                 boolean startGesture = true;
                 String backSettingsId = context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ?
-                        Settings.Secure.EDGE_GESTURES_BACK_EDGES :
-                        Settings.Secure.EDGE_GESTURES_LANDSCAPE_BACK_EDGES;
+                        Settings.System.EDGE_GESTURES_BACK_EDGES :
+                        Settings.System.EDGE_GESTURES_LANDSCAPE_BACK_EDGES;
                 int backGestureEdgesFlag = 0;
                 int percent = 0;
                 try {
@@ -62,7 +62,7 @@ public class ScreenGesturesController {
                             backSettingsId,
                             UserHandle.USER_CURRENT);
                     percent = Settings.Secure.getIntForUser(context.getContentResolver(),
-                            Settings.Secure.EDGE_GESTURES_BACK_SCREEN_PERCENT,
+                            Settings.System.EDGE_GESTURES_BACK_SCREEN_PERCENT,
                             UserHandle.USER_CURRENT);
                 } catch (Settings.SettingNotFoundException e) {
                     e.printStackTrace();

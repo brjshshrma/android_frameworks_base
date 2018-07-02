@@ -72,7 +72,7 @@ interface IStatusBarService
      */
     void shutdown();
     void reboot(boolean safeMode, String reason);
-
+    void toggleNavigationBar(boolean enable);
     void addTile(in ComponentName tile);
     void remTile(in ComponentName tile);
     void clickTile(in ComponentName tile);

@@ -178,6 +178,7 @@ LOCAL_SRC_FILES += \
 	core/java/android/content/pm/IPinItemRequest.aidl \
 	core/java/android/content/pm/IShortcutService.aidl \
 	core/java/android/content/pm/permission/IRuntimePermissionPresenter.aidl \
+	core/java/android/content/substratum/ISubstratumService.aidl \
 	core/java/android/database/IContentObserver.aidl \
 	../av/camera/aidl/android/hardware/ICameraService.aidl \
 	../av/camera/aidl/android/hardware/ICameraServiceListener.aidl \
@@ -337,6 +338,10 @@ LOCAL_SRC_FILES += \
 	core/java/android/service/voice/IVoiceInteractionService.aidl \
 	core/java/android/service/voice/IVoiceInteractionSession.aidl \
 	core/java/android/service/voice/IVoiceInteractionSessionService.aidl \
+	core/java/android/service/gesture/IGestureService.aidl \
+	core/java/android/service/gesture/IEdgeGestureService.aidl \
+	core/java/android/service/gesture/IEdgeGestureActivationListener.aidl \
+	core/java/android/service/gesture/IEdgeGestureHostCallback.aidl \
 	core/java/android/service/wallpaper/IWallpaperConnection.aidl \
 	core/java/android/service/wallpaper/IWallpaperEngine.aidl \
 	core/java/android/service/wallpaper/IWallpaperService.aidl \
@@ -405,6 +410,7 @@ LOCAL_SRC_FILES += \
 	core/java/com/android/internal/os/IShellCallback.aidl \
 	core/java/com/android/internal/statusbar/IStatusBar.aidl \
 	core/java/com/android/internal/statusbar/IStatusBarService.aidl \
+	core/java/com/android/internal/substratum/ISubstratumHelperService.aidl \
 	core/java/com/android/internal/textservice/ISpellCheckerService.aidl \
 	core/java/com/android/internal/textservice/ISpellCheckerServiceCallback.aidl \
 	core/java/com/android/internal/textservice/ISpellCheckerSession.aidl \

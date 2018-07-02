@@ -31,6 +31,7 @@ import static com.android.systemui.statusbar.phone.BarTransitions.MODE_SEMI_TRAN
 import static com.android.systemui.statusbar.phone.BarTransitions.MODE_TRANSLUCENT;
 import static com.android.systemui.statusbar.phone.BarTransitions.MODE_TRANSPARENT;
 import static com.android.systemui.statusbar.phone.BarTransitions.MODE_WARNING;
+import static com.android.systemui.statusbar.phone.BarTransitions.MODE_POWERSAVE_WARNING;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -250,6 +251,7 @@ import com.android.systemui.statusbar.policy.RemoteInputView;
 import com.android.systemui.statusbar.policy.UserInfoController;
 import com.android.systemui.statusbar.policy.UserInfoControllerImpl;
 import com.android.systemui.statusbar.policy.UserSwitcherController;
+import com.android.systemui.statusbar.screen_gestures.ScreenGesturesController;
 import com.android.systemui.statusbar.stack.NotificationStackScrollLayout;
 import com.android.systemui.statusbar.stack.NotificationStackScrollLayout
         .OnChildLocationsChangedListener;
@@ -508,6 +510,9 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     // the tracker view
     int mTrackingPosition; // the position of the top of the tracking view.
+   
+    // Full Screen Gestures
+    protected ScreenGesturesController gesturesController;
 
     // Tracking finger for opening/closing.
     boolean mTracking;
@@ -1107,7 +1112,11 @@ public class StatusBar extends SystemUI implements DemoMode,
         mNonBlockablePkgs = new HashSet<>();
         Collections.addAll(mNonBlockablePkgs, res.getStringArray(
                 com.android.internal.R.array.config_nonBlockableNotificationPackages));
-        // end old BaseStatusBar.start().
+         // end old BaseStatusBar.start().
+
+         mContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor(
+                Settings.System.EDGE_GESTURES_ENABLED), false,
+                mEdgeGesturesSettingsObserver);
 
         mMediaSessionManager
                 = (MediaSessionManager) mContext.getSystemService(Context.MEDIA_SESSION_SERVICE);
@@ -1503,6 +1512,20 @@ public class StatusBar extends SystemUI implements DemoMode,
         mNotificationIconAreaController.onDensityOrFontScaleChanged(mContext);
 
         reevaluateStyles();
+    
+        boolean edgeGesturesEnabled = Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                Settings.System.EDGE_GESTURES_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
+        updateEdgeGestures(edgeGesturesEnabled);
+    }
+
+    @Override
+    public void onOverlayChanged() {
+        reinflateViews();
+        updateNotificationsOnOverlayChanged();
+        mStackScroller.onOverlayChanged();
+        mNotificationShelf.onOverlayChanged();
+        mNotificationPanel.onOverlayChanged();
+        Dependency.get(DarkIconDispatcher.class).onOverlayChanged(mContext);
     }
 
     private void reinflateViews() {
@@ -1548,6 +1571,20 @@ public class StatusBar extends SystemUI implements DemoMode,
             boolean exposedGuts = mNotificationGutsExposed != null
                     && entry.row.getGuts() == mNotificationGutsExposed;
             entry.row.onDensityOrFontScaleChanged();
+            if (exposedGuts) {
+                mNotificationGutsExposed = entry.row.getGuts();
+                bindGuts(entry.row, mGutsMenuItem);
+            }
+        }
+    }
+
+    private void updateNotificationsOnOverlayChanged() {
+        ArrayList<Entry> activeNotifications = mNotificationData.getActiveNotifications();
+        for (int i = 0; i < activeNotifications.size(); i++) {
+            Entry entry = activeNotifications.get(i);
+            boolean exposedGuts = mNotificationGutsExposed != null
+                    && entry.row.getGuts() == mNotificationGutsExposed;
+            entry.row.onOverlayChanged();
             if (exposedGuts) {
                 mNotificationGutsExposed = entry.row.getGuts();
                 bindGuts(entry.row, mGutsMenuItem);
@@ -2892,6 +2929,28 @@ public class StatusBar extends SystemUI implements DemoMode,
                 false /* disallowEnterPictureInPictureWhileLaunching */, callback);
     }
 
+     @Override
+    public void toggleNavigationBar(boolean enable) {
+        if (enable) {
+            if (mNavigationBarView == null) {
+                try {
+                    createNavigationBar();
+                  //  setDoubleTapNavbar();
+             } catch (Exception e) {
+                    // monkey tapping the toggle more times and too fast
+                }
+            }
+        } else {
+            if (mNavigationBarView != null){
+                FragmentHostManager fm = FragmentHostManager.get(mNavigationBarView);
+                mWindowManager.removeViewImmediate(mNavigationBarView);
+                mNavigationBarView = null;
+                fm.getFragmentManager().beginTransaction().remove(mNavigationBar).commit();
+                mNavigationBar = null;
+            }
+        }
+    }            
+                
     public void setQsExpanded(boolean expanded) {
         mStatusBarWindowManager.setQsExpanded(expanded);
         mNotificationPanel.setStatusAccessibilityImportance(expanded
@@ -3702,7 +3761,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         final boolean anim = !mNoAnimationOnNextBarModeChange && mDeviceInteractive
                 && windowState != WINDOW_STATE_HIDDEN && !powerSave;
         if (powerSave && getBarState() == StatusBarState.SHADE) {
-            mode = MODE_WARNING;
+            mode = MODE_POWERSAVE_WARNING;
         }
         transitions.transitionTo(mode, anim);
     }
@@ -6195,6 +6254,16 @@ public class StatusBar extends SystemUI implements DemoMode,
         return mDeviceInteractive;
     }
 
+      private final ContentObserver mEdgeGesturesSettingsObserver = new ContentObserver(mHandler) {
+        @Override
+        public void onChange(boolean selfChange) {
+            boolean edgeGesturesEnabled = Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.EDGE_GESTURES_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
+
+            updateEdgeGestures(edgeGesturesEnabled);
+        }
+    };
+
     @Override  // NotificationData.Environment
     public boolean isDeviceProvisioned() {
         return mDeviceProvisionedController.isDeviceProvisioned();
@@ -8115,4 +8184,18 @@ public class StatusBar extends SystemUI implements DemoMode,
             mNavigationBar.getBarTransitions().setAutoDim(true);
         }
     };
+
+    public void updateEdgeGestures(boolean enabled) {
+        Log.d(TAG, "updateEdgeGestures: Updating edge gestures");
+        if (enabled) {
+            if (gesturesController == null) {
+                gesturesController = new ScreenGesturesController(mContext, mWindowManager, this);
+            }
+            gesturesController.reorient();
+        } else if (!enabled && gesturesController != null) {
+            gesturesController.stop();
+            gesturesController = null;
+        }
+    }
+
 }

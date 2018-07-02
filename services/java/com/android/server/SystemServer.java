@@ -91,6 +91,7 @@ import com.android.server.om.OverlayManagerService;
 import com.android.server.os.DeviceIdentifiersPolicyService;
 import com.android.server.os.SchedulingPolicyService;
 import com.android.server.pm.BackgroundDexOptService;
+import com.android.server.gesture.EdgeGestureService;
 import com.android.server.pm.Installer;
 import com.android.server.pm.LauncherAppsService;
 import com.android.server.pm.OtaDexoptService;
@@ -107,6 +108,7 @@ import com.android.server.security.KeyChainSystemService;
 import com.android.server.soundtrigger.SoundTriggerService;
 import com.android.server.statusbar.StatusBarManagerService;
 import com.android.server.storage.DeviceStorageMonitorService;
+import com.android.server.substratum.SubstratumService;
 import com.android.server.telecom.TelecomLoaderService;
 import com.android.server.trust.TrustManagerService;
 import com.android.server.tv.TvInputManagerService;
@@ -650,6 +652,11 @@ public final class SystemServer {
         // Manages Overlay packages
         traceBeginAndSlog("StartOverlayManagerService");
         mSystemServiceManager.startService(new OverlayManagerService(mSystemContext, installer));
+
+        // Substratum system server implementation
+        traceBeginAndSlog("StartSubstratumService");
+        mSystemServiceManager.startService(new SubstratumService(mSystemContext));
+
         traceEnd();
 
         // The sensor service needs access to package manager service, app ops
@@ -914,6 +921,7 @@ public final class SystemServer {
         CountryDetectorService countryDetector = null;
         ILockSettings lockSettings = null;
         MediaRouterService mediaRouter = null;
+        EdgeGestureService edgeGestureService = null;
 
         // Bring up services needed for UI.
         if (mFactoryTestMode != FactoryTest.FACTORY_TEST_LOW_LEVEL) {
@@ -1527,6 +1535,13 @@ public final class SystemServer {
             traceBeginAndSlog("StartLauncherAppsService");
             mSystemServiceManager.startService(LauncherAppsService.class);
             traceEnd();
+            try {
+                Slog.i(TAG, "EdgeGesture service");
+                edgeGestureService = new EdgeGestureService(context, inputManager);
+                ServiceManager.addService("edgegestureservice", edgeGestureService);
+            } catch (Throwable e) {
+                Slog.e(TAG, "Failure starting EdgeGesture service", e);
+            }
         }
 
         if (!disableNonCoreServices && !disableMediaProjection) {
@@ -1655,6 +1670,12 @@ public final class SystemServer {
             mActivityManagerService.showSafeModeOverlay();
         }
 
+        // Let's check whether we should disable all theme overlays
+        final boolean disableOverlays = wm.detectDisableOverlays();
+        if (disableOverlays) {
+            mActivityManagerService.disableOverlays();
+        }
+
         // Update the configuration for this context by hand, because we're going
         // to start using it before the config change done in wm.systemReady() will
         // propagate to it.
@@ -1695,8 +1716,14 @@ public final class SystemServer {
             reportWtf("making Display Manager Service ready", e);
         }
         traceEnd();
-
         mSystemServiceManager.setSafeMode(safeMode);
+        if (edgeGestureService != null) {
+            try {
+                edgeGestureService.systemReady();
+            } catch (Throwable e) {
+                reportWtf("making EdgeGesture service ready", e);
+            }
+        }
 
         // These are needed to propagate to the runnable below.
         final NetworkManagementService networkManagementF = networkManagement;

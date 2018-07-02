@@ -653,9 +653,8 @@ public class CommandQueue extends IStatusBar.Stub {
                         mCallbacks.get(i).handleShowGlobalActionsMenu();
                     }
                     break;
-                case MSG_SHOW_SHUTDOWN_UI:
+                case MSG_TOGGLE_NAVIGATION_BAR:
                     for (int i = 0; i < mCallbacks.size(); i++) {
-                        mCallbacks.get(i).handleShowShutdownUi(msg.arg1 != 0, (String) msg.obj, msg.arg2 != 0);
                         mCallbacks.get(i).toggleNavigationBar(msg.arg1 != 0);
                     }
                     break;

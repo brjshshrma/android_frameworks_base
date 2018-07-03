@@ -8694,4 +8694,21 @@
     </declare-styleable>
 
     <attr name="lockPatternStyle" format="reference" />
+
+    <!-- Custom Analog clock --> 
+    <declare-styleable name="CustomAnalogClock"> 
+        <attr name="custom_dial" format="reference"/> 
+        <attr name="custom_hand_hour" format="reference"/> 
+        <attr name="custom_hand_minute" format="reference"/> 
+        <attr name="deadpool_dial" format="reference"/> 
+        <attr name="deadpool_hand_hour" format="reference"/> 
+        <attr name="deadpool_hand_minute" format="reference"/> 
+    </declare-styleable> 
+ 
+    <!-- DeadPool Analog clock --> 
+    <declare-styleable name="DeadPoolAnalogClock"> 
+        <attr name="deadpool_dial" format="reference"/> 
+        <attr name="deadpool_hand_hour" format="reference"/> 
+        <attr name="deadpool_hand_minute" format="reference"/> 
+    </declare-styleable> 
 </resources>

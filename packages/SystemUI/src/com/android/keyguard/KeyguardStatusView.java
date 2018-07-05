@@ -354,7 +354,7 @@ public class KeyguardStatusView extends GridLayout {
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(true);
                 mClockView.setGravity(Gravity.CENTER);
-                mAnalogClockView.unregisterReceiver();
+                mAnalogClockView.registerReceiver();
                break;
             case 1: // digital (bold)
                 mClockView.setVisibility(View.VISIBLE);
@@ -374,7 +374,7 @@ public class KeyguardStatusView extends GridLayout {
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(false);
                 mClockView.setGravity(Gravity.CENTER);
-                mAnalogClockView.unregisterReceiver();
+                mAnalogClockView.registerReceiver();
                 break;
             case 4: // sammy (bold)
                 mClockView.setVisibility( View.VISIBLE);
@@ -382,7 +382,7 @@ public class KeyguardStatusView extends GridLayout {
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(false);
                 mClockView.setGravity(Gravity.CENTER);
-                mAnalogClockView.unregisterReceiver();
+                mAnalogClockView.registerReceiver();
                 break;
         }
 
@@ -408,6 +408,7 @@ public class KeyguardStatusView extends GridLayout {
                 break;
         }
 
+        
         updateDozeVisibleViews();
     }
 
@@ -453,7 +454,6 @@ public class KeyguardStatusView extends GridLayout {
 
     public void setDark(float darkAmount) {
         if (mDarkAmount == darkAmount) {
-            updateVisibilities();
             return;
         }
         mDarkAmount = darkAmount;
@@ -480,8 +480,7 @@ public class KeyguardStatusView extends GridLayout {
         mAlarmStatusView.setCompoundDrawableTintList(ColorStateList.valueOf(blendedAlarmColor));
 
         mAnalogClockView.setDark(dark);
-        updateVisibilities(); // with updated mDarkAmount value
-
+        
     }
 
     public void setPulsing(boolean pulsing) {

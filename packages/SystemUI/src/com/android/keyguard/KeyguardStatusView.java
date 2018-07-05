@@ -16,6 +16,7 @@
 
 package com.android.keyguard;
 
+import android.content.BroadcastReceiver;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.content.Context;

@@ -8174,11 +8174,11 @@ public class StatusBar extends SystemUI implements DemoMode,
             case LOCKSCREEN_MEDIA_METADATA:
                 mShowMediaMetadata = newValue == null || Integer.parseInt(newValue) == 1;
                 break;
-            case NAVBAR_DYNAMIC:
+            /**case NAVBAR_DYNAMIC:
                 if (mNavigationBar != null && mNavigationBarView != null) {
                     mNavigationBar.updateNavbarOverlay(mContext.getResources());
                 }
-                break;
+                break;**/
             default:
                 break;
         }

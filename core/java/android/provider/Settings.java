@@ -4001,6 +4001,20 @@ public final class Settings {
         public static final String LOCKSCREEN_DATE_SELECTION = "lockscreen_date_selection";
 
         /**
+         * Whether Ambient Play enabled/disabled
+         *
+         * @hide
+         */
+        public static final String AMBIENT_RECOGNITION = "ambient_recognition";
+
+        /**
+         * Whether Ambient Play is shown on the lockscreen
+         *
+         * @hide
+         */
+        public static final String AMBIENT_RECOGNITION_KEYGUARD = "ambient_recognition_keyguard";
+
+        /**
          * Select which lockscreen clock style to display
          * @hide
          */
@@ -7314,133 +7328,8 @@ public final class Settings {
          */
         public static final String MANAGED_PROFILE_CONTACT_REMOTE_SEARCH =
                 "managed_profile_contact_remote_search";
-       
-       
-         /**
-         * Whether Ambient Play enabled/disabled
-         *
-         * @hide
-         */
-        public static final String AMBIENT_RECOGNITION = "ambient_recognition";
 
         /**
-<<<<<<< HEAD
-=======
-         * Whether Ambient Play is shown on the lockscreen
-         *
-         * @hide
-         */
-        public static final String AMBIENT_RECOGNITION_KEYGUARD = "ambient_recognition_keyguard";
-        /**
-         * Whether to use edge gestures to navigate.
-         * @hide
-         */
-        public static final String EDGE_GESTURES_ENABLED = "edge_gestures_enabled";
-
-        /**
-         * Haptic feedback duration on edge gesture navigation.
-         * @hide
-         */
-        public static final String EDGE_GESTURES_FEEDBACK_DURATION = "edge_gestures_feedback_duration";
-
-        /**
-         * Long press duration on edge gesture navigation.
-         * @hide
-         */
-        public static final String EDGE_GESTURES_LONG_PRESS_DURATION = "edge_gestures_long_press_duration";
-
-        /**
-         * Back gesture active on this edges.
-         * @hide
-         */
-        public static final String EDGE_GESTURES_BACK_EDGES = "edge_gestures_back_edges";
-
-        /**
-         * Back gesture active on this edges when on landscape.
-         * @hide
-         */
-        public static final String EDGE_GESTURES_LANDSCAPE_BACK_EDGES = "edge_gestures_landscape_back_edges";
-
-        /**
-         * Activate back gestures only when Y position > than this % of screen.
-         * @hide
-         */
-        public static final String EDGE_GESTURES_BACK_SCREEN_PERCENT = "edge_gestures_back_screen_percent";
-
-        /**
-         * Whether to show PIE controls on the screen.
-         * 0 = OFF
-         * 1 = ON
-         * Changes aspect depends on status bar visibility.
-         * @hide
-         */
-        public static final String PIE_STATE = "pie_state";
-
-        /**
-         * PIE controls current location.
-         * Gravity.BOTTOM (default)
-         * Gravity.LEFT
-         * Gravity.RIGHT
-         * @hide
-         */
-        public static final String PIE_GRAVITY = "pie_gravity";
-
-        /**
-         * Whether to show battery circle in PIE controls.
-         * 0 = Text only
-         * 1 = Circle only
-         * 2 = Text and circle
-         * @hide
-         */
-        public static final String PIE_BATTERY_MODE = "pie_battery_mode";
-
-        /**
-         * PIE controls theme mode.
-         * 0 = AUTO
-         * 1 = WHITE
-         * 2 = DARK
-         * @hide
-         */
-        public static final String PIE_THEME_MODE = "pie_theme_mode";
-
-        /**
-         * PIE controls status indicator mode.
-         * 0 = BOTH
-         * 1 = WIFI ONLY
-         * 2 = MOBILE NETWORK ONLY
-         * 3 = NONE
-         * @hide
-         */
-        public static final String PIE_STATUS_INDICATOR = "pie_status_indicator";
-
-        /**
-         * Used to store the last used system ui flags to make qs settings stick after reboot
-         * @hide
-         */
-        public static final String LAST_SYSTEM_DESIGN_FLAGS = "last_system_design_flags";
-
-        /**
-         * Setting to record how the look and feel of the system should be tweaked. This
-         * should be used in combination with magic.
-         *
-         * @see android.view.View#SYSTEM_DESIGN_FLAG_IMMERSIVE_NAV
-         * @see android.view.View#SYSTEM_DESIGN_FLAG_IMMERSIVE_STATUS
-         * @hide
-         */
-        public static final String SYSTEM_DESIGN_FLAGS = "system_design_flags";
-
-        /**
-         * Settings to reset on user request. They will fall back to their default value (0).
-         *
-         * @hide
-         */
-        public static final String[] SETTINGS_TO_RESET = {
-            PIE_STATE,
-            PIE_GRAVITY
-        };
-
-        /**
->>>>>>> feb1483... Introduce Ambient Indication Interface
          * Whether or not the automatic storage manager is enabled and should run on the device.
          *
          * @hide

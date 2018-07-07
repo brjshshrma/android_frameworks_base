@@ -22,7 +22,7 @@ import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.provider.Settings;
 
-import static android.provider.Settings.Secure.AMBIENT_RECOGNITION;
+import static android.provider.Settings.System.AMBIENT_RECOGNITION;
 
 /**
  * Class helping audio fingerprinting for recognition

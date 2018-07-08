@@ -4221,6 +4221,12 @@ public final class Settings {
          */
         public static final String QS_PANEL_BG_ALPHA = "qs_panel_bg_alpha";
 
+	 /**
+         * Whether to use icon pack for Recents
+         * @hide
+         */
+        public static final String RECENTS_ICON_PACK = "recents_icon_pack";    
+	    
         /**
          * Dynamic Navbar Switch
          * @hide

@@ -4162,6 +4162,12 @@ public final class Settings {
          */
         public static final String SHOW_CLEAR_ALL_RECENTS = "show_clear_all_recents";
 
+	 /**
+         * Three Finger Gesture from Oppo
+         * @hide
+         */
+        public static final String THREE_FINGER_GESTURE = "three_finger_gesture";    
+	    
         /**
          * location of the clear all rectents button
          * @hide

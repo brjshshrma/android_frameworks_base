@@ -1478,43 +1478,6 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         mAmbientNotification = new AmbientIndicationNotification(mContext);
 
-/**        mFlashlightController = Dependency.get(FlashlightController.class);
-
-        try {
-            BroadcastReceiver receiver = new BroadcastReceiver() {
-
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    if (NotificationPanelView.mKeyguardShowing) {
-                        return;
-                    }
-                    String action = intent.getAction();
-
-               if (action.equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
-                        if (NotificationPanelView.mKeyguardShowing) {
-                            return;
-                        }
-                        RecentsActivity.onConfigurationChanged();
-
-                        if (mExpandedVisible && NotificationPanelView.mBlurredStatusBarExpandedEnabled && (!NotificationPanelView.mKeyguardShowing)) {
-                            makeExpandedInvisible();
-                        }
-                    }
-                }
-            };
-
-            IntentFilter intent = new IntentFilter();
-            intent.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
-            this.mContext.registerReceiver(receiver, intent);
-
-            RecentsActivity.init(this.mContext);
-
-            updatePreferences(mContext);
-        } catch (Exception e){
-            Log.d("mango918", String.valueOf(e));
-        }
->>>>>>> feb1483... Introduce Ambient Indication Interface
-    }**/
 
     private AmbientIndicationManagerCallback mAmbientCallback = new AmbientIndicationManagerCallback() {
           @Override
@@ -5234,30 +5197,6 @@ public class StatusBar extends SystemUI implements DemoMode,
              }
          }
 
-/**    private void updateRoundedCorner(){ 
-        boolean sysuiRoundedFwvals = Settings.Secure.getIntForUser(mContext.getContentResolver(), 
-                     Settings.Secure.SYSUI_ROUNDED_FWVALS, 1, mCurrentUserId) == 1; 
-         if (sysuiRoundedFwvals && !isCurrentRoundedSameAsFw()) { 
-  
-             Resources res = null; 
-             try { 
-                 res = mContext.getPackageManager().getResourcesForApplication("com.android.systemui"); 
-             } catch (NameNotFoundException e) { 
-                 e.printStackTrace(); 
-             } 
-  
-             if (res != null) { 
-                 int resourceIdRadius = res.getIdentifier("com.android.systemui:dimen/rounded_corner_fuckedup_radius", null, null); 
-                 Settings.Secure.putInt(mContext.getContentResolver(), 
-                     Settings.Secure.SYSUI_ROUNDED_SIZE, res.getDimensionPixelSize(resourceIdRadius)); 
-                 int resourceIdPadding = res.getIdentifier("com.android.systemui:dimen/rounded_corner_content_padding", null, null); 
-                 Settings.Secure.putInt(mContext.getContentResolver(), 
-                     Settings.Secure.SYSUI_ROUNDED_CONTENT_PADDING, res.getDimensionPixelSize(resourceIdPadding)); 
-             } 
-         } 
-    } 
-
->>>>>>> feb1483... Introduce Ambient Indication Interface**/
     /**
      * Switches theme from light to dark and vice-versa.
      */
@@ -6583,34 +6522,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     }
     
-    private void updateBlurSettings() {
-        ContentResolver resolver = mContext.getContentResolver();
-        mBlurScale = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.BLUR_SCALE_PREFERENCE_KEY, 10);
-        mBlurRadius = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.BLUR_RADIUS_PREFERENCE_KEY, 5);
-        mBlurredStatusBarExpandedEnabled = Settings.System.getIntForUser(resolver,
-                Settings.System.STATUS_BAR_EXPANDED_ENABLED_PREFERENCE_KEY, 0, UserHandle.USER_CURRENT) == 1;
-        mTranslucentNotifications = Settings.System.getIntForUser(resolver,
-                Settings.System.TRANSLUCENT_NOTIFICATIONS_PREFERENCE_KEY, 0, UserHandle.USER_CURRENT) == 1;
-        mNotTranslucencyPercentage = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.TRANSLUCENT_NOTIFICATIONS_PRECENTAGE_PREFERENCE_KEY, 70);
-       mBlurredRecents = Settings.System.getIntForUser(resolver,
-                Settings.System.RECENT_APPS_ENABLED_PREFERENCE_KEY, 0, UserHandle.USER_CURRENT) == 1;
-        mScaleRecents = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.RECENT_APPS_SCALE_PREFERENCE_KEY, 6);
-        mRadiusRecents = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.RECENT_APPS_RADIUS_PREFERENCE_KEY, 3);
-        mBlurDarkColorFilter = Settings.System.getInt(mContext.getContentResolver(), 
-                Settings.System.BLUR_DARK_COLOR_PREFERENCE_KEY, Color.LTGRAY);
-        mBlurMixedColorFilter = Settings.System.getInt(mContext.getContentResolver(), 
-                Settings.System.BLUR_MIXED_COLOR_PREFERENCE_KEY, Color.GRAY);
-        mBlurLightColorFilter = Settings.System.getInt(mContext.getContentResolver(), 
-                Settings.System.BLUR_LIGHT_COLOR_PREFERENCE_KEY, Color.DKGRAY);
-        RecentsActivity.updateBlurColors(mBlurDarkColorFilter,mBlurMixedColorFilter,mBlurLightColorFilter);
-        RecentsActivity.updateRadiusScale(mScaleRecents,mRadiusRecents);
-}
-
     private void setFpToDismissNotifications() {
         mFpDismissNotifications = Settings.Secure.getIntForUser(mContext.getContentResolver(),
                 Settings.Secure.FP_SWIPE_TO_DISMISS_NOTIFICATIONS, 0,

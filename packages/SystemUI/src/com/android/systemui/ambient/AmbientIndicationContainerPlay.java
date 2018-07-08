@@ -31,8 +31,8 @@ import com.android.systemui.AutoReinflateContainer;
 import com.android.systemui.doze.DozeReceiver;
 import com.android.systemui.statusbar.phone.StatusBar;
 
-import static android.provider.Settings.Secure.AMBIENT_RECOGNITION;
-import static android.provider.Settings.Secure.AMBIENT_RECOGNITION_KEYGUARD;
+import static android.provider.Settings.System.AMBIENT_RECOGNITION;
+import static android.provider.Settings.System.AMBIENT_RECOGNITION_KEYGUARD;
 
 public class AmbientIndicationContainerPlay extends AutoReinflateContainer implements DozeReceiver {
     private View mAmbientIndication;

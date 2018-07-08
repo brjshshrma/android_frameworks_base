@@ -205,8 +205,8 @@ import com.android.systemui.recents.misc.SystemServicesProxy;
 import com.android.systemui.settings.CurrentUserTracker;
 import com.android.systemui.stackdivider.Divider;
 import com.android.systemui.stackdivider.WindowManagerProxy;
-import static android.provider.Settings.Secure.AMBIENT_RECOGNITION;
-import static android.provider.Settings.Secure.AMBIENT_RECOGNITION_KEYGUARD;
+import static android.provider.Settings.System.AMBIENT_RECOGNITION;
+import static android.provider.Settings.System.AMBIENT_RECOGNITION_KEYGUARD;
 import android.ambient.AmbientIndicationManager;
 import android.ambient.AmbientIndicationManagerCallback;
 import com.android.systemui.ambient.AmbientIndicationContainerPlay;
@@ -1477,7 +1477,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         ThreadedRenderer.overrideProperty("ambientRatio", String.valueOf(1.5f));
 
         mAmbientNotification = new AmbientIndicationNotification(mContext);
-
+         }
 
     private AmbientIndicationManagerCallback mAmbientCallback = new AmbientIndicationManagerCallback() {
           @Override
@@ -5179,10 +5179,10 @@ public class StatusBar extends SystemUI implements DemoMode,
              void observe() {
                  ContentResolver resolver = mContext.getContentResolver();
                  resolver.registerContentObserver(Settings.Secure.getUriFor(
-                         Settings.Secure.AMBIENT_RECOGNITION),
+                         Settings.System.AMBIENT_RECOGNITION),
                          false, this, UserHandle.USER_ALL);
                  resolver.registerContentObserver(Settings.Secure.getUriFor(
-                         Settings.Secure.AMBIENT_RECOGNITION_KEYGUARD),
+                         Settings.System.AMBIENT_RECOGNITION_KEYGUARD),
                          false, this, UserHandle.USER_ALL);
              }
      

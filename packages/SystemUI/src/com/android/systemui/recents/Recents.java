@@ -200,8 +200,10 @@ public class Recents extends SystemUI
 
     public static RecentsDebugFlags getDebugFlags() {
         return sDebugFlags;
+    } 
+    public void resetIconCache() {
+        getTaskLoader().resetIconCache();
     }
-
     @Override
     public void start() {
         sDebugFlags = new RecentsDebugFlags(mContext);

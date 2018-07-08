@@ -2248,7 +2248,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         try {
             mOrientationListener.setCurrentRotation(windowManager.getDefaultDisplayRotation());
         } catch (RemoteException ex) { }
-        +
+        
         mOPGestures = new OPGesturesListener(context, new OPGesturesListener.Callbacks() {
                     @Override
                     public void onSwipeThreeFinger() {

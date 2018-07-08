@@ -20,5 +20,12 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
   <java-symbol type="bool" name="config_canForceDozeNotifications" />
+ <!-- Spidey clock -->
+    <java-symbol type="drawable" name="spidey_clock_dial" />
+    <java-symbol type="drawable" name="spidey_clock_dial_ambient" />
+    <java-symbol type="drawable" name="spidey_clock_hand_hour" />
+    <java-symbol type="drawable" name="spidey_clock_hand_minute" />
+    <java-symbol type="color" name="spidey_clock_hour_hand_color" />
+    <java-symbol type="color" name="spidey_clock_minute_hand_color" />
 
 </resources>

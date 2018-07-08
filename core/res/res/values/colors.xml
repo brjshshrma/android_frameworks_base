@@ -206,4 +206,8 @@
     <!-- Dynamic Navbar -->
     <color name="input_method_navigation_guard_dynamic">@android:color/transparent</color>
 
+     <!-- Spidey clock -->
+    <color name="spidey_clock_hour_hand_color">#0288D1</color>
+    <color name="spidey_clock_minute_hand_color">#0288D1</color>
+
 </resources>

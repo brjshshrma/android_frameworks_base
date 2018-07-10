@@ -30,7 +30,6 @@ import android.widget.CustomAnalogClock;
 import android.widget.RelativeLayout;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.SpideyAnalogClock;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.support.v4.graphics.ColorUtils;
@@ -64,7 +63,6 @@ public class KeyguardStatusView extends GridLayout {
 
     private TextView mAlarmStatusView;
     private DateView mDateView;
-    private SpideyAnalogClock mSpideyClockView;
     private CustomAnalogClock mAnalogClockView;
     private TextClock mClockView;
     private TextView mOwnerInfo;
@@ -164,7 +162,6 @@ public class KeyguardStatusView extends GridLayout {
         mClockContainer = findViewById(R.id.keyguard_clock_container);
         mAlarmStatusView = findViewById(R.id.alarm_status);
         mDateView = findViewById(R.id.date_view);
-        mSpideyClockView = findViewById(R.id.spidey_clock_view);
         mAnalogClockView = findViewById(R.id.analog_clock_view);
         mClockView = findViewById(R.id.clock_view);
         mClockView.setShowCurrentUserTime(true);
@@ -174,7 +171,7 @@ public class KeyguardStatusView extends GridLayout {
         mOwnerInfo = findViewById(R.id.owner_info);
         mBatteryDoze = findViewById(R.id.battery_doze);
         mKeyguardStatusArea = findViewById(R.id.keyguard_status_area);
-        mVisibleInDoze = new View[]{mBatteryDoze, mClockView, mAnalogClockView, mSpideyClockView, mKeyguardStatusArea};
+        mVisibleInDoze = new View[]{mBatteryDoze, mClockView, mAnalogClockView, mKeyguardStatusArea};
         mTextColor = mClockView.getCurrentTextColor();
         mDateTextColor = mDateView.getCurrentTextColor();
         mAlarmTextColor = mAlarmStatusView.getCurrentTextColor();
@@ -194,13 +191,7 @@ public class KeyguardStatusView extends GridLayout {
         super.onConfigurationChanged(newConfig);
         mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
-       // Spidey analog clock
-        MarginLayoutParams spideylayoutParams = (MarginLayoutParams) mSpideyClockView.getLayoutParams();
-        spideylayoutParams.bottomMargin = getResources().getDimensionPixelSize(
-                R.dimen.bottom_text_spacing_digital);
-        mAnalogClockView.setLayoutParams(spideylayoutParams);
- 
-      // Some layouts like burmese have a different margin for the clock
+        // Some layouts like burmese have a different margin for the clock
         MarginLayoutParams layoutParams = (MarginLayoutParams) mClockView.getLayoutParams();
         layoutParams.bottomMargin = getResources().getDimensionPixelSize(
                 R.dimen.bottom_text_spacing_digital);
@@ -353,7 +344,6 @@ public class KeyguardStatusView extends GridLayout {
                // mClockView.setVisibility(View.VISIBLE);
                 mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
-                mSpideyClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(true);
                 break;
@@ -361,14 +351,12 @@ public class KeyguardStatusView extends GridLayout {
                // mClockView.setVisibility(View.VISIBLE);
                 mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
-                mSpideyClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(true);
                 break;
             case 2: // analog
                 //mAnalogClockView.setVisibility(View.VISIBLE);
                 mAnalogClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
-               mSpideyClockView.setVisibility(View.GONE);
                 mClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.analog_clock_view);
                 break;
@@ -376,7 +364,6 @@ public class KeyguardStatusView extends GridLayout {
                // mClockView.setVisibility(View.VISIBLE);
                 mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
-                mSpideyClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(false);
                 break;
@@ -384,16 +371,9 @@ public class KeyguardStatusView extends GridLayout {
                // mClockView.setVisibility( View.VISIBLE);
                 mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
-                mSpideyClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(false);
                 break;
-           case 7: //analog (spidey)
-  //              mSpideyClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE : View.GONE) : View.VISIBLE);
-                mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);   
-                mAnalogClockView.setVisibility(View.GONE);
-                mClockView.setVisibility(View.GONE);
-//                mDeadPoolClockView.setVisibility(View.GONE);
         }
 
         switch (mDateSelection) {
@@ -512,8 +492,8 @@ public class KeyguardStatusView extends GridLayout {
         int blendedAlarmColor = ColorUtils.blendARGB(mAlarmTextColor, Color.WHITE, darkAmount);
         mAlarmStatusView.setTextColor(blendedAlarmColor);
         mAlarmStatusView.setCompoundDrawableTintList(ColorStateList.valueOf(blendedAlarmColor));
-        mAnalogClockView.setDark(dark);  
-        mSpideyClockView.setDark(dark);
+        mAnalogClockView.setDark(dark); 
+
    }
 
     public void setPulsing(boolean pulsing) {

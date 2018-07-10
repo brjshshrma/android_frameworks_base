@@ -3992,7 +3992,7 @@ public final class Settings {
          * Hide lockscreen alarm
          * @hide
          */
-        public static final String HIDE_LOCKSCREEN_ALARM = "hide_lockscreen_alarm";		
+       // public static final String HIDE_LOCKSCREEN_ALARM = "hide_lockscreen_alarm";		
 
         /**
          * Select which lockscreen date style to display

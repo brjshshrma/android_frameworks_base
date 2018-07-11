@@ -16,6 +16,7 @@
 
 package com.android.systemui.statusbar;
 
+import android.animation.ValueAnimator;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,6 +24,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Color;
+import aoscp.support.lottie.LottieAnimationView;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.BatteryManager;
 import android.os.BatteryStats;
@@ -72,7 +74,7 @@ public class KeyguardIndicationController {
     private final UserManager mUserManager;
     private final IBatteryStats mBatteryInfo;
     private final SettableWakeLock mWakeLock;
-
+    
     private final int mSlowThreshold;
     private final int mFastThreshold;
     private LockIcon mLockIcon;
@@ -94,9 +96,11 @@ public class KeyguardIndicationController {
     private String mMessageToShowOnScreenOn;
 
     private KeyguardUpdateMonitorCallback mUpdateMonitorCallback;
-
+    private LottieAnimationView mChargingIndication;
+    
     private final DevicePolicyManager mDevicePolicyManager;
     private boolean mDozing;
+    private boolean mIsAmbientPlayShowing;
 
     /**
      * Creates a new KeyguardIndicationController and registers callbacks.
@@ -117,6 +121,8 @@ public class KeyguardIndicationController {
                 WakeLock wakeLock) {
         mContext = context;
         mIndicationArea = indicationArea;
+        mChargingIndication = (LottieAnimationView) indicationArea.findViewById(
+                R.id.charging_indication);
         mTextView = (KeyguardIndicationTextView) indicationArea.findViewById(
                 R.id.keyguard_indication_text);
         mInitialTextColor = mTextView != null ? mTextView.getCurrentTextColor() : Color.WHITE;
@@ -184,6 +190,10 @@ public class KeyguardIndicationController {
         }
     }
 
+    public void setChargingIndicator(boolean visible) {
+        mIsAmbientPlayShowing = visible;
+    }
+    
     public void setVisible(boolean visible) {
         mVisible = visible;
         mIndicationArea.setVisibility(visible ? View.VISIBLE : View.GONE);
@@ -298,6 +308,7 @@ public class KeyguardIndicationController {
                 } else {
                     mTextView.switchIndication(null);
                 }
+                mChargingIndication.setVisibility(View.GONE);
                 return;
             }
 
@@ -331,6 +342,28 @@ public class KeyguardIndicationController {
                 mTextView.switchIndication(mRestingIndication);
                 mTextView.setTextColor(mInitialTextColor);
             }
+            updateChargingIndication();
+        }
+    }
+
+    private void updateChargingIndication() {
+        if (mPowerPluggedIn) {
+           mChargingIndication.setVisibility(View.VISIBLE);
+           ValueAnimator anim = ValueAnimator.ofFloat(0f, 1f).setDuration(4000);
+           anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+               @Override
+               public void onAnimationUpdate(ValueAnimator valueAnim) {
+                    mChargingIndication.setProgress((Float) valueAnim.getAnimatedValue());
+                }
+            });
+
+            if (mChargingIndication.getProgress() == 0f) {
+                anim.start();
+            } else {
+                mChargingIndication.setProgress(0f);
+            }
+        } else {
+            mChargingIndication.setVisibility(View.GONE);
         }
     }
 

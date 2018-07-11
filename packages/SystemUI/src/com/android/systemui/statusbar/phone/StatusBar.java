@@ -1491,6 +1491,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                       ((AmbientIndicationContainerPlay) mAmbientIndicationContainerPlay)
                                   .setIndication(observed.Song, observed.Artist);
                       mAmbientNotification.show(observed.Song, observed.Artist);
+                      mKeyguardIndicationController.setChargingIndicator(false);
                       doStopAmbientRecognition();
                   }
               });
@@ -1501,6 +1502,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                   @Override
                   public void run() {
                       ((AmbientIndicationContainerPlay) mAmbientIndicationContainerPlay).hideIndication();
+                      mKeyguardIndicationController.setChargingIndicator(true);
                       doStopAmbientRecognition();
                   }
               });

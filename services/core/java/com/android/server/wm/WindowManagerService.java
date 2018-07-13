@@ -6389,6 +6389,12 @@ public class WindowManagerService extends IWindowManager.Stub
     }
 
     @Override
+   public void sendCustomAction(Intent intent) {
+        mPolicy.sendCustomAction(intent);
+    }
+
+
+    @Override
     public void createInputConsumer(String name, InputChannel inputChannel) {
         synchronized (mWindowMap) {
             mInputMonitor.createInputConsumer(name, inputChannel);

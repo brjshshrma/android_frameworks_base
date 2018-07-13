@@ -33,6 +33,7 @@ import android.util.TimingsTraceLog;
 import android.util.Log;
 
 import com.android.systemui.globalactions.GlobalActionsComponent;
+import com.android.systemui.navigation.Navigator;
 import com.android.systemui.keyboard.KeyboardUI;
 import com.android.systemui.keyguard.KeyguardViewMediator;
 import com.android.systemui.media.RingtonePlayer;
@@ -233,15 +234,17 @@ public class SystemUIApplication extends Application implements SysUiServiceProv
                     public void onPluginConnected(OverlayPlugin plugin, Context pluginContext) {
                         StatusBar statusBar = getComponent(StatusBar.class);
                         if (statusBar != null) {
-                            plugin.setup(statusBar.getStatusBarWindow(),
-                                    statusBar.getNavigationBarView());
+                    Navigator navbar = statusBar.getNavigationBarView();
+                                 plugin.setup(statusBar.getStatusBarWindow(),
+                                    navbar != null ? navbar.getBaseView() : null);
                         }
                         // Lazy init.
-                        if (mOverlays == null) mOverlays = new ArraySet<>();
+                        if (mOverlays == null)
+                            mOverlays = new ArraySet<>();
                         if (plugin.holdStatusBarOpen()) {
                             mOverlays.add(plugin);
-                            Dependency.get(StatusBarWindowManager.class).setStateListener(b ->
-                                    mOverlays.forEach(o -> o.setCollapseDesired(b)));
+                            Dependency.get(StatusBarWindowManager.class).setStateListener(
+                                    b -> mOverlays.forEach(o -> o.setCollapseDesired(b)));
                             Dependency.get(StatusBarWindowManager.class).setForcePluginOpen(
                                     mOverlays.size() != 0);
 

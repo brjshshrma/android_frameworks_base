@@ -17,7 +17,6 @@
 package android.view;
 
 import static android.Manifest.permission;
-import android.content.Intent;
 import static android.view.Display.DEFAULT_DISPLAY;
 import static android.view.WindowManager.LayoutParams.FIRST_APPLICATION_WINDOW;
 import static android.view.WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
@@ -301,11 +300,6 @@ public interface WindowManagerPolicy {
          * @return Rect The rectangle holding the visible frame.
          */
         public Rect getVisibleFrameLw();
-
-        /**
-     * Send some ActionHandler commands to WindowManager.
-     */
-    public void sendCustomAction(Intent intent);
 
         /**
          * Returns true if this window is waiting to receive its given

@@ -20,7 +20,5 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
   <java-symbol type="bool" name="config_canForceDozeNotifications" />
-  <java-symbol type="anim" name="du_app_in" />
-  <java-symbol type="anim" name="du_app_out" />
 
 </resources>

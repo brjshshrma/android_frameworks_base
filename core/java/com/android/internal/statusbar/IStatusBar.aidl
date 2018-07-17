@@ -19,7 +19,6 @@ package com.android.internal.statusbar;
 import android.content.ComponentName;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.content.Intent;
 import android.service.notification.StatusBarNotification;
 
 import com.android.internal.statusbar.StatusBarIcon;
@@ -29,11 +28,6 @@ oneway interface IStatusBar
 {
     void setIcon(String slot, in StatusBarIcon icon);
     void removeIcon(String slot);
-    void screenPinningStateChanged(boolean enabled);
-    void leftInLandscapeChanged(boolean isLeft);
-    void toggleFlashlight();
-    void toggleNavigationEditor();
-    void dispatchNavigationEditorResults(in Intent intent);
     void disable(int state1, int state2);
     void animateExpandNotificationsPanel();
     void animateExpandSettingsPanel(String subPanel);

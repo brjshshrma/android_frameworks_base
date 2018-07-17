@@ -23,7 +23,6 @@ import static com.android.systemui.statusbar.phone.FingerprintUnlockController.M
 import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.os.Bundle;
-import com.android.systemui.navigation.Navigator;
 import android.os.SystemClock;
 import android.os.Trace;
 import android.view.KeyEvent;
@@ -593,7 +592,7 @@ public class StatusBarKeyguardViewManager implements RemoteInputController.Callb
     private Runnable mMakeNavigationBarVisibleRunnable = new Runnable() {
         @Override
         public void run() {
-            mStatusBar.getNavigationBarView().getBaseView().getRootView().setVisibility(View.VISIBLE);
+            mStatusBar.getNavigationBarView().getRootView().setVisibility(View.VISIBLE);
         }
     };
 
@@ -619,9 +618,8 @@ public class StatusBarKeyguardViewManager implements RemoteInputController.Callb
         boolean navBarVisible = isNavBarVisible();
         boolean lastNavBarVisible = getLastNavBarVisible();
         if (navBarVisible != lastNavBarVisible || mFirstUpdate) {
-                    Navigator navbar = mStatusBar.getNavigationBarView();
-            if (navbar != null) {
-                    if (navBarVisible) {
+            if (mStatusBar.getNavigationBarView() != null) {
+                if (navBarVisible) {
                     long delay = getNavBarShowDelay();
                     if (delay == 0) {
                         mMakeNavigationBarVisibleRunnable.run();
@@ -631,7 +629,7 @@ public class StatusBarKeyguardViewManager implements RemoteInputController.Callb
                     }
                 } else {
                     mContainer.removeCallbacks(mMakeNavigationBarVisibleRunnable);
-                    navbar.getBaseView().getRootView().setVisibility(View.GONE);
+                    mStatusBar.getNavigationBarView().getRootView().setVisibility(View.GONE);
                 }
             }
         }

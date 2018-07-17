@@ -16,7 +16,6 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := SystemUI-tags
 
 LOCAL_SRC_FILES := src/com/android/systemui/EventLogTags.logtags
-LOCAL_SRC_FILES += $(call all-java-files-under, ../../../../packages/apps/DUI/src)
 
 include $(BUILD_STATIC_JAVA_LIBRARY)
 
@@ -45,13 +44,10 @@ LOCAL_STATIC_ANDROID_LIBRARIES := \
 LOCAL_STATIC_JAVA_LIBRARIES := \
     SystemUI-tags \
     SystemUI-proto \
-    org.lineageos.platform.internal \
-    trail-drawing \
-    rebound
+    org.lineageos.platform.internal
 
 LOCAL_JAVA_LIBRARIES := telephony-common
 LOCAL_JAVA_LIBRARIES += android.car
-LOCAL_JAVA_LIBRARIES += org.dirtyunicorns.utils
 LOCAL_FULL_LIBS_MANIFEST_FILES := $(LOCAL_PATH)/LineageManifest.xml
 
 LOCAL_PACKAGE_NAME := SystemUI
@@ -59,8 +55,7 @@ LOCAL_CERTIFICATE := platform
 LOCAL_PRIVILEGED_MODULE := true
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
-#LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res-keyguard $(LOCAL_PATH)/res
-LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res-keyguard $(LOCAL_PATH)/res packages/apps/DUI/res
+LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res-keyguard $(LOCAL_PATH)/res
 
 ifneq ($(INCREMENTAL_BUILDS),)
     LOCAL_PROGUARD_ENABLED := disabled

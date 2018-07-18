@@ -22,17 +22,8 @@
     <integer name="recents_animate_fab_enter_delay">275</integer>
     <!-- The min animation duration for animating the fab out. -->
     <integer name="recents_animate_fab_exit_duration">125</integer>
-<<<<<<< HEAD
-=======
-
-    <!-- The default tiles to display in QuickSettings -->
-    <string name="quick_settings_tiles_extra" translatable="false">
-    adb_network,anbi,caffeine,compass,expanded_desktop,heads_up,navigation_bar,pip,reboot,screenshot,sound,volume,sync,soundsearch,aod
-    </string>
-    <!-- Whether to show Data disable prompt when user turn off data from QS -->
-    <bool name="config_show_data_disable_prompt">false</bool>
-
+   
     <!-- Config to enable/diaable qs tile tinting -->
-    <bool name="config_enable_qs_tile_tinting">false</bool>
->>>>>>> 1189021... Themes: base: expose QS tiles and label colors
+    <bool name="config_enable_qs_tile_tinting">true</bool>
+
 </resources>

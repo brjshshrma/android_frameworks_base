@@ -2743,7 +2743,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
 
         Drawable artworkDrawable = null;
-        if (mMediaMetadata != null && mLockscreenMediaMetadata) {
+        if (mMediaMetadata != null && mShowMediaMetadata) {
 
             Bitmap artworkBitmap = null;
             artworkBitmap = mMediaMetadata.getBitmap(MediaMetadata.METADATA_KEY_ART);
@@ -6540,7 +6540,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateQsPanelResources();
             updateBatterySettings();
             updateRecentsIconPack();
-            setLockscreenMediaMetadata();
+            setShowMediaMetadata();
             setHeadsUpStoplist();
             setHeadsUpBlacklist();
         }
@@ -6591,7 +6591,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
                 
 
-    private void setLockscreenMediaMetadata() {
+    private void setShowMediaMetadata() {
         mLockscreenMediaMetadata = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.LOCKSCREEN_MEDIA_METADATA, 0, UserHandle.USER_CURRENT) == 1;
     }

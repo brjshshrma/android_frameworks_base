@@ -3081,5 +3081,10 @@
 
   <!-- Dynamic Navbar -->
   <java-symbol type="color" name="input_method_navigation_guard_dynamic" />
+ 
+  <!-- App error dialog -->
+  <java-symbol type="id" name="aerr_copy" />
+  <java-symbol type="string" name="url_copy_success" />
+  <java-symbol type="string" name="url_copy_failed" />
 
 </resources>

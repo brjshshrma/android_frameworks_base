@@ -3948,66 +3948,6 @@ public final class Settings {
          */
         public static final String SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
 
-/**AD
-=======
-        /** @hide 
-        public static final Validator SHOW_BATTERY_PERCENT_VALIDATOR =
-                new InclusiveIntegerRangeValidator(0, 2);
-
-
-        /** Beginning of ABC custom setttings
-
-        /**
-         * Custom button brightness value for manual mode
-         *
-         * @hide
-         
-        public static final String CUSTOM_BUTTON_BRIGHTNESS = "custom_button_brightness";
-
-        /**
-         * use same value for buttons as for screen (manual and auto mode)
-         *
-         * @hide
-         
-        public static final String CUSTOM_BUTTON_USE_SCREEN_BRIGHTNESS = "custom_button_use_screen_brightness";
-
-        /**
-         * disable all button brightness (manual and auto mode)
-         *
-         * @hide
-         
-        public static final String BUTTON_BACKLIGHT_ENABLE = "button_backlight_enable";
-
-        /**
-         * Timeout value for button lights. 0 = disabled
-         * @hide
-         
-        public static final String BUTTON_BACKLIGHT_TIMEOUT = "button_backlight_timeout";
-
-        /**
-         * @hide
-         
-        public static final String BUTTON_BACKLIGHT_ON_TOUCH_ONLY = "button_backlight_on_touch_only";
-
-        /**
-         * Use latest screen-on brightness value for Ambient Display
-         * @hide
-         
-        public static final String AMBIENT_DOZE_AUTO_BRIGHTNESS = "ambient_doze_auto_brightness";
-
-        /**
-         * Use latest screen-on brightness value for Ambient Display
-         * @hide
-         
-        public static final String LAST_DOZE_AUTO_BRIGHTNESS = "last_doze_auto_brightness";
-
-        /**
-         * show the membar in recents
-         *  @hide
-         
-        public static final String SYSTEMUI_RECENTS_MEM_DISPLAY = "systemui_recents_mem_display";
-
->>>>>>> 48711c8... base: featureize ro.recents.grid and Go Layout**/
         /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
@@ -4273,6 +4213,7 @@ public final class Settings {
         public static final String QS_COLUMNS_LANDSCAPE = "qs_columns_landscape";
 
         /**
+	 * Whether to display qs tile titles in the qs panel
          * @hide
          */
         public static final String QS_TILE_TITLE_VISIBILITY = "qs_tile_title_visibility";

@@ -127,13 +127,13 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
 
                     int brightness = currentValue - 10;
 
-                    if (currentValue != 0) {
+                   /** if (currentValue != 0) {
                         try {
                             Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, brightness);
                         } /**catch (Exception e) {
                             Log.d(TAG, "Caught exception with Low Brightness", e);
-                        }*/
-                    }
+                        }
+                    }**/
                 }
             }
         });
@@ -158,13 +158,13 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
 
                     int brightness = currentValue + 10;
 
-                    if (currentValue != 255) {
+                    /**if (currentValue != 255) {
                         try {
                             Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, brightness);
                         } /**catch (Exception e) {
                             Log.d(TAG, "Caught exception with Max Brightness", e);
-                        }**/
-                    }
+                        }
+                    }**/
                 }
             }
         });

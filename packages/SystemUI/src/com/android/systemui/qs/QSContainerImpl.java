@@ -91,7 +91,7 @@ public class QSContainerImpl extends FrameLayout {
 
     private void updateSettings() {
         mQsBackGroundAlpha = Settings.System.getIntForUser(getContext().getContentResolver(),
-                Settings.System.QS_PANEL_BG_ALPHA, 255,
+                Settings.System.QS_PANEL_BG_ALPHA, 300,
                 UserHandle.USER_CURRENT);
         setQsBackgroundAlpha();
     }

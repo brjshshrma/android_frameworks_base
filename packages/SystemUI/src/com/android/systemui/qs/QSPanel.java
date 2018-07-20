@@ -273,6 +273,13 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         }
     }
 
+    protected void setupTileLayout() {
+        mTileLayout = (QSTileLayout) LayoutInflater.from(mContext).inflate(
+                R.layout.qs_paged_tile_layout, this, false);
+        mTileLayout.setListening(mListening);
+        addView((View) mTileLayout);
+    }
+    
     @Override
     protected void onDetachedFromWindow() {
         Dependency.get(TunerService.class).removeTunable(this);

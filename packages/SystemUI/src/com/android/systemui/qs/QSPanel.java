@@ -19,6 +19,7 @@ package com.android.systemui.qs;
 import static android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL;
 import static com.android.systemui.qs.tileimpl.QSTileImpl.getColorForState;
 
+import android.view.ViewGroup;
 import android.util.Log;
 import android.content.ComponentName;
 import android.content.Context;

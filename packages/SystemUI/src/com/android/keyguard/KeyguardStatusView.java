@@ -348,7 +348,7 @@ public class KeyguardStatusView extends GridLayout {
                 break;
         }
 
-        private void updateSettings() {
+        private void updateSettings(boolean forceHide) {
         final ContentResolver resolver = getContext().getContentResolver();
 
         mClockSelection = Settings.System.getIntForUser(resolver,

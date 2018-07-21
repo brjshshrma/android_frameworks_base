@@ -4001,6 +4001,12 @@ public final class Settings {
         public static final String LOCKSCREEN_DATE_SELECTION = "lockscreen_date_selection";
 
          /**
+         * show the membar in recents
+         *  @hide
+         */
+        public static final String SYSTEMUI_RECENTS_MEM_DISPLAY = "systemui_recents_mem_display";
+
+         /**
          * Defines the screen-off animation to display
          * @hide
          */

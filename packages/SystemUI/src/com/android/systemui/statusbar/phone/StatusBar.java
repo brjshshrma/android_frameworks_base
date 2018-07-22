@@ -6545,12 +6545,13 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.RECENTS_ICON_PACK))) {
                 } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_DATE_SELECTION))) {
-                //updateKeyguardStatusSettings();
+                updateKeyguardStatusSettings();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_CLOCK_SELECTION))) {
                 unloadClocks();
                 updateClocks();
                 updateRecentsIconPack();
+                updateKeyguardStatusSettings();
             }
         }
 
@@ -6563,7 +6564,12 @@ public class StatusBar extends SystemUI implements DemoMode,
             setShowMediaMetadata();
             setHeadsUpStoplist();
             setHeadsUpBlacklist();
+            updateKeyguardStatusSettings();
         }
+    }
+
+   private void updateKeyguardStatusSettings() {
+        mNotificationPanel.updateKeyguardStatusSettings();
     }
 
     private void updateBatterySettings() {

@@ -401,17 +401,8 @@ public class KeyguardStatusView extends GridLayout {
                 mSpectrumClockView.setVisibility(View.GONE);
                 mClockView.setGravity(Gravity.CENTER);
                  break;
-            case 4: // analog
-                //mAnalogClockView.setVisibility(View.VISIBLE);
-                mAnalogClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
-                mClockView.setVisibility(View.GONE);
-                params.addRule(RelativeLayout.BELOW, R.id.analog_clock_view);
-                mAnalogClockView.registerReceiver();
-                mSpectrumClockView.unregisterReceiver();
-                mSpectrumClockView.setVisibility(View.GONE);
-                //mClockView.setGravity(Gravity.CENTER);
- 
-           case 5: // analog (spectrum)
+	
+	    case 4: // analog (spectrum)
                 params.addRule(RelativeLayout.BELOW, R.id.spectrum_clock_view);
                 mAnalogClockView.unregisterReceiver();
 	        mSpectrumClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);	
@@ -421,7 +412,17 @@ public class KeyguardStatusView extends GridLayout {
        //         mDotClockView.unregisterReceiver();
 	//			mDeadPoolClockView.unregisterReceiver();
                break;
-          default: // custom analog styles (int > 4)
+            case 5: // analog
+                //mAnalogClockView.setVisibility(View.VISIBLE);
+                mAnalogClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
+                mClockView.setVisibility(View.GONE);
+                params.addRule(RelativeLayout.BELOW, R.id.analog_clock_view);
+                mAnalogClockView.registerReceiver();
+                mSpectrumClockView.unregisterReceiver();
+                mSpectrumClockView.setVisibility(View.GONE);
+                //mClockView.setGravity(Gravity.CENTER);
+       
+          default: // custom analog styles (int > 5)
                 mAnalogClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 // mAnalogClockView.setVisibility(View.VISIBLE);
                 mClockView.setVisibility(View.GONE);

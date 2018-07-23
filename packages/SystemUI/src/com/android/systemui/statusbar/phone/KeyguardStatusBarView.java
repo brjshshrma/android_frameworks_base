@@ -254,7 +254,13 @@ public class KeyguardStatusBarView extends RelativeLayout
             updateVisibilities();
         }
     }
-
+ 
+    public void updateSettings() {
+        if (mBatteryView != null) {
+            mBatteryView.updateSettings(true);
+        }
+}
+ 
     @Override
     public void onPowerSaveChanged(boolean isPowerSave) {
         // could not care less

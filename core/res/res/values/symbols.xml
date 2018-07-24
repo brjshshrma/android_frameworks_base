@@ -3096,6 +3096,4 @@
    <java-symbol type="drawable" name="spectrum_clock_hand_hour" />
    <java-symbol type="drawable" name="spectrum_clock_hand_minute" />
 
-   <java-symbol type="string" name="custom_clock_styles" />
-
 </resources>

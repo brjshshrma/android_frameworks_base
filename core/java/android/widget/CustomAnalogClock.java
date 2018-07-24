@@ -246,7 +246,7 @@ public class CustomAnalogClock extends View {
             hourHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
         }
         if (mIsAmbientDisplay) {
-            hourHand.setTint(Color.GRAY);
+            hourHand.setTint(Color.WHITE);
         } else {
             hourHand.setTintList(null);
         }

@@ -6551,6 +6551,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                 unloadClocks();
                 updateClocks();
                 updateRecentsIconPack();
+                updateKeyguardStatusSettings
             }
         }
 
@@ -6563,9 +6564,14 @@ public class StatusBar extends SystemUI implements DemoMode,
             setShowMediaMetadata();
             setHeadsUpStoplist();
             setHeadsUpBlacklist();
+            updateKeyguardStatusSettings
         }
     }
 
+     private void updateKeyguardStatusSettings() {
+        mNotificationPanel.updateKeyguardStatusSettings();
+    }
+                
     private void updateBatterySettings() {
         if (mStatusBarView != null) {
             mStatusBarView.updateBatterySettings();

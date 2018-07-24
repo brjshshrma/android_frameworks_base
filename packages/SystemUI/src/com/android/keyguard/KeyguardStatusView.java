@@ -427,8 +427,6 @@ public class KeyguardStatusView extends GridLayout {
                 mClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.analog_clock_view);
                 mAnalogClockView.registerReceiver();
-                mSpectrumClockView.unregisterReceiver();
-                mSpectrumClockView.setVisibility(View.GONE);
                 break;
         }
 

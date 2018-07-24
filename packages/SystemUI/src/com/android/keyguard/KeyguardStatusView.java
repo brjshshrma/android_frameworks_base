@@ -488,6 +488,7 @@ public class KeyguardStatusView extends GridLayout {
     }***/
 
      public void updateAll() {
+        updateSettings();
         refresh();
     }
 

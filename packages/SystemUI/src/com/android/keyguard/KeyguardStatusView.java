@@ -322,6 +322,13 @@ public class KeyguardStatusView extends GridLayout {
     }
 
          private void updateVisibilities() {
+        boolean showAlarm = Settings.System.getIntForUser(resolver,
+                Settings.System.HIDE_LOCKSCREEN_ALARM, 1, UserHandle.USER_CURRENT) == 1;
+        boolean showClock = Settings.System.getIntForUser(resolver,
+                Settings.System.HIDE_LOCKSCREEN_CLOCK, 1, UserHandle.USER_CURRENT) == 1;
+        boolean showDate = Settings.System.getIntForUser(resolver,
+                Settings.System.HIDE_LOCKSCREEN_DATE, 1, UserHandle.USER_CURRENT) == 1;
+             
         switch (mClockSelection) {
             case 0: // default digital
                 mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
@@ -358,7 +365,7 @@ public class KeyguardStatusView extends GridLayout {
                 Settings.System.LOCKSCREEN_CLOCK_SELECTION, 0, UserHandle.USER_CURRENT);
         mDateSelection = Settings.System.getIntForUser(resolver,
                  Settings.System.LOCKSCREEN_DATE_SELECTION, 0, UserHandle.USER_CURRENT);
-         AlarmManager.AlarmClockInfo nextAlarm =
+        AlarmManager.AlarmClockInfo nextAlarm =
                 mAlarmManager.getNextAlarmClock(UserHandle.USER_CURRENT);
         boolean showAlarm = Settings.System.getIntForUser(resolver,
                 Settings.System.HIDE_LOCKSCREEN_ALARM, 1, UserHandle.USER_CURRENT) == 1;

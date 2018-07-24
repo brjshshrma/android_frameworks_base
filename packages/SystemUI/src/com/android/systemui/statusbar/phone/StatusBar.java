@@ -5213,8 +5213,13 @@ public class StatusBar extends SystemUI implements DemoMode,
              public void update() {
                  initAmbientRecognition();
                  updateAmbientIndicationForKeyguard();
+                  updateKeyguardStatusSettings();
              }
          }
+
+            private void updateKeyguardStatusSettings() {
+        mNotificationPanel.updateKeyguardStatusSettings();
+    }
 
     /**
      * Switches theme from light to dark and vice-versa.

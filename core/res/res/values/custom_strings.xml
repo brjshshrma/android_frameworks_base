@@ -20,6 +20,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
 <string name="custom_clock_styles" translatable="false">
-        digital,digital_bold,sammy,sammy_bold,spectrum,analog
+        digital,digital_bold,sammy,sammy_bold,analog,spectrum
     </string>
 </resources>

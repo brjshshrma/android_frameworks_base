@@ -349,6 +349,7 @@ public class KeyguardStatusView extends GridLayout {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mKeyguardStatusArea.getLayoutParams();
         switch (mClockSelection) {
             case 0: // default digital
+            default:
                // mClockView.setVisibility(View.VISIBLE);
                 mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);

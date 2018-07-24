@@ -20,6 +20,7 @@ import static com.android.systemui.statusbar.notification.NotificationUtils.inte
 
 import android.content.res.Resources;
 import android.graphics.Path;
+//import android.util.TypedValue;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.PathInterpolator;
 
@@ -29,7 +30,7 @@ import com.android.systemui.R;
  * Utility class to calculate the clock position and top padding of notifications on Keyguard.
  */
 public class KeyguardClockPositionAlgorithm {
-
+	
     private static final float SLOW_DOWN_FACTOR = 0.4f;
 
     private static final float CLOCK_RUBBERBAND_FACTOR_MIN = 0.08f;
@@ -59,6 +60,8 @@ public class KeyguardClockPositionAlgorithm {
     private float mDensity;
     private int mBurnInPreventionOffsetX;
     private int mBurnInPreventionOffsetY;
+    private boolean mIsBigClock;
+    //private float mBigClockPadding;
 
     /**
      * The number (fractional) of notifications the "more" card counts when calculating how many
@@ -99,7 +102,10 @@ public class KeyguardClockPositionAlgorithm {
         mBurnInPreventionOffsetY = res.getDimensionPixelSize(
                 R.dimen.burn_in_prevention_offset_y);
         mDozingStackPadding = res.getDimensionPixelSize(R.dimen.dozing_stack_padding);
-    }
+          /*TypedValue typedValue = new TypedValue();
+        res.getValue(R.dimen.dozing_big_clock_padding, typedValue, true);
+        mBigClockPadding = typedValue.getFloat();*/  
+  }
 
     public void setup(int maxKeyguardNotifications, int maxPanelHeight, float expandedHeight,
             int notificationCount, int height, int keyguardStatusHeight, float emptyDragAmount,
@@ -169,11 +175,15 @@ public class KeyguardClockPositionAlgorithm {
     private int getClockY() {
         // Dark: Align the bottom edge of the clock at one third:
         // clockBottomEdge = result - mKeyguardStatusHeight / 2 + mClockBottom
-        float clockYDark = (0.33f * mHeight + (float) mKeyguardStatusHeight / 2 - mClockBottom)
-                + burnInPreventionOffsetY();
+        float clockYDark =(/*(mIsBigClock ? mBigClockPadding : */0.33f/*)*/ * mHeight + (float) mKeyguardStatusHeight / 2 - mClockBottom) 
+               + burnInPreventionOffsetY();
         float clockYRegular = getClockYFraction() * mHeight;
         return (int) interpolate(clockYRegular, clockYDark, mDarkAmount);
     }
+
+    public void setClockSelection(int style) {
+         mIsBigClock = style == 3;
+   }
 
     private float burnInPreventionOffsetY() {
         return zigzag(System.currentTimeMillis() / MILLIS_PER_MINUTES,

@@ -28,4 +28,7 @@
     <!-- Membar spacing -->
     <dimen name="recents_membar_spacing">12dp</dimen>
 
+    <!-- Big clock dozing
+    <dimen name="dozing_big_clock_padding" format="float">0.38</dimen> -->
+
 </resources>

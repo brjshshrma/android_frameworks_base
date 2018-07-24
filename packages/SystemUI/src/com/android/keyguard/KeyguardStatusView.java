@@ -487,11 +487,6 @@ public class KeyguardStatusView extends GridLayout {
         mAlarmStatusView.setVisibility(showAlarm && nextAlarm != null ? View.VISIBLE : View.GONE);
     }***/
 
-     public void updateAll() {
-        updateSettings();
-        refresh();
-    }
-
     // DateFormat.getBestDateTimePattern is extremely expensive, and refresh is called often.
     // This is an optimization to ensure we only recompute the patterns when the inputs change.
     private static final class Patterns {

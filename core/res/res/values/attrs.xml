@@ -8704,12 +8704,4 @@
     </declare-styleable>
 
     <attr name="lockPatternStyle" format="reference" />
-
-   <!-- Spectrum Analog clock -->
-    <declare-styleable name="SpectrumAnalogClock">
-        <attr name="spectrum_dial" format="reference"/>
-        <attr name="spectrum_hand_hour" format="reference"/>
-        <attr name="spectrum_hand_minute" format="reference"/>
-    </declare-styleable>
-
 </resources>

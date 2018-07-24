@@ -261,10 +261,6 @@ public class KeyguardStatusView extends GridLayout {
         return mKeyguardStatusArea.getBottom();
     }
 
-    public int getClockSelection() {
-               return mClockSelection;
-    }
-
     public float getClockTextSize() {
         return mClockView.getTextSize();
     }

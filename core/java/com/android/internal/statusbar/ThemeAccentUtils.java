@@ -37,7 +37,7 @@ public class ThemeAccentUtils {
     public static void updateClocks(IOverlayManager om, int userId, int clockSetting, Context ctx) {
         // all clock already unloaded due to StatusBar observer unloadClocks call
         // set the custom analog clock overlay
-        if (clockSetting > 5) {
+        if (clockSetting > 4) {
             try {
                 final String[] clocks = getClocks(ctx);
                 om.setEnabled(clocks[clockSetting],

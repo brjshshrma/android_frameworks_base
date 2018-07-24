@@ -324,27 +324,27 @@ public class KeyguardStatusView extends GridLayout {
          private void updateVisibilities() {
         switch (mClockSelection) {
             case 0: // default digital
-                mClockView.setVisibility(mShowClock ? View.VISIBLE : View.GONE);
+                mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
                 break;
             case 1: // digital (bold)
-                mClockView.setVisibility(mShowClock ? View.VISIBLE : View.GONE);
+                mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
                 break;
             case 2: // sammy
-                mClockView.setVisibility(mShowClock ? View.VISIBLE : View.GONE);
+                mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
                  break;
             case 3: // sammy (bold)
-                mClockView.setVisibility(mShowClock ? View.VISIBLE : View.GONE);
+                mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
                 break;
             case 4: // analog
-                mAnalogClockView.setVisibility(mShowClock ? View.VISIBLE : View.GONE);
+                mAnalogClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mClockView.setVisibility(View.GONE);
                  break;
             default: // custom analog styles (int > 4)
-                mAnalogClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE : View.GONE) : View.VISIBLE);
+                mAnalogClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mClockView.setVisibility(View.GONE);
                 break;
         }

@@ -323,7 +323,7 @@ public class KeyguardStatusView extends GridLayout {
 
          private void updateVisibilities() {
          
-        final ContentResolver resolver = context.getContentResolver();
+        final ContentResolver resolver = getContext().getContentResolver();
              
         boolean showAlarm = Settings.System.getIntForUser(resolver,
                 Settings.System.HIDE_LOCKSCREEN_ALARM, 1, UserHandle.USER_CURRENT) == 1;

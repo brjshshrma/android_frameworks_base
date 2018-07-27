@@ -72,7 +72,32 @@ public class QSContainerImpl extends FrameLayout {
         setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
     }
 
-    private class SettingsObserver extends ContentObserver {
+        void observe() {
+            getContext().getContentResolver().registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.QS_HEADER_COLOR), false,
+                    this, UserHandle.USER_ALL);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            updateColor();
+        }
+    }
+	
+	private void updateColor() {
+		String color = Settings.System.getStringForUser(getContext().getContentResolver(),
+                Settings.System.QS_HEADER_COLOR,
+                UserHandle.USER_CURRENT);
+		if (color != null) {
+			mHeaderColor = color;
+		} else {
+			mHeaderColor = "#00FFFFFF";
+			Settings.System.putString(getContext().getContentResolver(), Settings.System.QS_HEADER_COLOR, "#00FFFFFF");
+		}
+		mHeaderView.setBackgroundColor(Color.parseColor(mHeaderColor));
+    }
+	
+	private class SettingsObserver extends ContentObserver {
         SettingsObserver(Handler handler) {
             super(handler);
         }
@@ -93,6 +118,7 @@ public class QSContainerImpl extends FrameLayout {
         mQsBackGroundAlpha = Settings.System.getIntForUser(getContext().getContentResolver(),
                 Settings.System.QS_PANEL_BG_ALPHA, 221,
                 UserHandle.USER_CURRENT);
+<<<<<<< HEAD
         setQsBackgroundAlpha();
     }
 
@@ -101,6 +127,10 @@ public class QSContainerImpl extends FrameLayout {
             mQsBackGround.setAlpha(mQsBackGroundAlpha);
             setBackground(mQsBackGround);
         }
+=======
+		Drawable bg = mBackground.getBackground();
+		bg.setAlpha(mQsBackGroundAlpha);
+>>>>>>> 1340626... Dot Interface : Volume Panel misc modifications + headerColor fixes
     }
 
     @Override

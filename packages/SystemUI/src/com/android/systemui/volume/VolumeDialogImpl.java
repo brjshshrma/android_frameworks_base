@@ -213,7 +213,9 @@ public class VolumeDialogImpl implements VolumeDialog, TunerService.Tunable {
         lp.type = mWindowType;
         lp.format = PixelFormat.TRANSLUCENT;
         lp.setTitle(VolumeDialogImpl.class.getSimpleName());
-        lp.gravity = Gravity.TOP | Gravity.END;
+        lp.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+        lp.y = res.getDimensionPixelSize(R.dimen.volume_offset_top);
+        lp.gravity = Gravity.TOP;
         lp.windowAnimations = -1;
         mWindow.setAttributes(lp);
         mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
@@ -304,7 +306,15 @@ public class VolumeDialogImpl implements VolumeDialog, TunerService.Tunable {
 
     private void updateWindowWidthH() {
         final ViewGroup.LayoutParams lp = mDialogView.getLayoutParams();
-        lp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        final DisplayMetrics dm = mContext.getResources().getDisplayMetrics();
+        if (D.BUG) Log.d(TAG, "updateWindowWidth dm.w=" + dm.widthPixels);
+        int w = dm.widthPixels;
+        final int max = mContext.getResources()
+                .getDimensionPixelSize(R.dimen.volume_dialog_panel_width);
+        if (w > max) {
+            w = max;
+        }
+        lp.width = w;
         mDialogView.setLayoutParams(lp);
     }
 
@@ -583,12 +593,12 @@ public class VolumeDialogImpl implements VolumeDialog, TunerService.Tunable {
         if (D.BUG) Log.d(TAG, "updateExpandedH " + expanded);
         updateExpandButtonH();
         updateFooterH();
-        //TransitionManager.endTransitions(mDialogView);
+        TransitionManager.endTransitions(mDialogView);
         final VolumeRow activeRow = getActiveRow();
-        //if (!dismissing) {
-        //    mWindow.setLayout(mWindow.getAttributes().width, ViewGroup.LayoutParams.MATCH_PARENT);
-        //    TransitionManager.beginDelayedTransition(mDialogView, getTransition());
-        //}
+        if (!dismissing) {
+            mWindow.setLayout(mWindow.getAttributes().width, ViewGroup.LayoutParams.MATCH_PARENT);
+            TransitionManager.beginDelayedTransition(mDialogView, getTransition());
+        }
         updateRowsH(activeRow);
         rescheduleTimeoutH();
     }
@@ -736,8 +746,8 @@ public class VolumeDialogImpl implements VolumeDialog, TunerService.Tunable {
                 && (mAudioManager.isStreamAffectedByRingerMode(mActiveStream) || mExpanded)
                 && !mZenPanel.isEditing();
 
-        //TransitionManager.endTransitions(mDialogView);
-        //TransitionManager.beginDelayedTransition(mDialogView, getTransition());
+        TransitionManager.endTransitions(mDialogView);
+        TransitionManager.beginDelayedTransition(mDialogView, getTransition());
         if (wasVisible != visible && !visible) {
             prepareForCollapse();
         }

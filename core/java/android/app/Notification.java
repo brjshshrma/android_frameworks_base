@@ -6270,7 +6270,6 @@ public class Notification implements Parcelable
                 sb.append(bidi.unicodeWrap(m.mSender),
                         makeFontColorSpan(colorize
                                 ? builder.getPrimaryTextColor()
-                                : builder.getSenderTextColor()),
                                 : mBuilder.resolveContrastColor()),
                         0 /* flags */);
             }

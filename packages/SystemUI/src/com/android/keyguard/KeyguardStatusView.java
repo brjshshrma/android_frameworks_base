@@ -594,11 +594,11 @@ public class KeyguardStatusView extends GridLayout {
             final ContentResolver resolver = context.getContentResolver();
             final boolean showAlarm = Settings.System.getIntForUser(resolver,
                     Settings.System.HIDE_LOCKSCREEN_ALARM, 1, UserHandle.USER_CURRENT) == 1;
-           if (mDateSelectionStatic == 3 || mDateSelectionStatic == 5) {
+           if (mDateSelectionStatic == 9 || mDateSelectionStatic == 11) {
             dateViewSkel = res.getString(hasAlarm
                     ? R.string.abbrev_wday_month_day_no_year_alarm
                     : R.string.abbrev_wday_day_no_year);
-            } else if (mDateSelectionStatic == 4 || mDateSelectionStatic == 6) {
+            } else if (mDateSelectionStatic == 10 || mDateSelectionStatic == 12) {
             dateViewSkel = res.getString(hasAlarm
                     ? R.string.abbrev_wday_month_day_no_year_alarm
                     : R.string.abbrev_wday_no_year);

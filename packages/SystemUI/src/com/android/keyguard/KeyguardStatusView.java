@@ -210,7 +210,8 @@ public class KeyguardStatusView extends GridLayout {
         mClockView.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
         mDateView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimensionPixelSize(R.dimen.widget_label_font_size));
-        if (mOwnerInfo != null) {
+        mDateView.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+         if (mOwnerInfo != null) {
             mOwnerInfo.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                     getResources().getDimensionPixelSize(R.dimen.widget_label_font_size));
         }
@@ -219,6 +220,11 @@ public class KeyguardStatusView extends GridLayout {
     private int getLockClockFont() {
         return Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.LOCK_CLOCK_FONTS, 0);
+    }
+
+     private int getLockDateFont() {
+        return Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.LOCK_DATE_FONTS, 0);
     }
 
     public void refreshTime() {
@@ -661,7 +667,8 @@ public class KeyguardStatusView extends GridLayout {
         final Resources res = getContext().getResources();
         boolean isPrimary = UserHandle.getCallingUserId() == UserHandle.USER_OWNER;
         int lockClockFont = isPrimary ? getLockClockFont() : 0;
-
+        int lockDateFont = isPrimary ? getLockDateFont() : 0;
+  
         if (lockClockFont == 0) {
             mClockView.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
         }
@@ -697,6 +704,44 @@ public class KeyguardStatusView extends GridLayout {
         }
         if (lockClockFont == 11) {
             mClockView.setTypeface(Typeface.create("sans-serif-medium", Typeface.ITALIC));
+        }
+      
+        // Lockscreen date
+        if (lockDateFont == 0) {
+            mDateView.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+        }
+        if (lockDateFont == 1) {
+            mDateView.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+        }
+        if (lockDateFont == 2) {
+            mDateView.setTypeface(Typeface.create("sans-serif", Typeface.ITALIC));
+        }
+        if (lockDateFont == 3) {
+            mDateView.setTypeface(Typeface.create("sans-serif", Typeface.BOLD_ITALIC));
+        }
+        if (lockDateFont == 4) {
+            mDateView.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+        }
+        if (lockDateFont == 5) {
+            mDateView.setTypeface(Typeface.create("sans-serif-light", Typeface.ITALIC));
+        }
+        if (lockDateFont == 6) {
+            mDateView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+        }
+        if (lockDateFont == 7) {
+            mDateView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.ITALIC));
+        }
+        if (lockDateFont == 8) {
+            mDateView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
+        }
+        if (lockDateFont == 9) {
+            mDateView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD_ITALIC));
+        }
+        if (lockDateFont == 10) {
+            mDateView.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+        }
+        if (lockDateFont == 11) {
+            mDateView.setTypeface(Typeface.create("sans-serif-medium", Typeface.ITALIC));
         }
     }
 

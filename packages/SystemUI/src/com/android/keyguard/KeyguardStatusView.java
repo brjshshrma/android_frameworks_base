@@ -338,6 +338,12 @@ public class KeyguardStatusView extends GridLayout {
                 Settings.System.HIDE_LOCKSCREEN_CLOCK, 1, UserHandle.USER_CURRENT) == 1;
         boolean showDate = Settings.System.getIntForUser(resolver,
                 Settings.System.HIDE_LOCKSCREEN_DATE, 1, UserHandle.USER_CURRENT) == 1;
+       
+        AlarmManager.AlarmClockInfo nextAlarm =
+                mAlarmManager.getNextAlarmClock(UserHandle.USER_CURRENT);
+              
+        mAlarmStatusView = (TextView) findViewById(R.id.alarm_status);
+        mAlarmStatusView.setVisibility(showAlarm && nextAlarm != null ? View.VISIBLE : View.GONE);
              
         switch (mClockSelection) {
             case 0: // default digital
@@ -364,6 +370,9 @@ public class KeyguardStatusView extends GridLayout {
             case 3: // sammy (bold)
                 mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mAnalogClockView.setVisibility(View.GONE);
+                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
+                mClockView.setLineSpacing(0,1f);
                 break;
             case 4: // sammy accent
                 mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
@@ -378,7 +387,7 @@ public class KeyguardStatusView extends GridLayout {
                 mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimensionPixelSize(R.dimen.widget_sammy_accent_font_size));
                 mClockView.setLineSpacing(-60f,1f);
-                 mAnalogClockView.setVisibility(View.GONE);
+                mAnalogClockView.setVisibility(View.GONE);
             case 6: // analog
                 mAnalogClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 mClockView.setVisibility(View.GONE);
@@ -491,30 +500,37 @@ public class KeyguardStatusView extends GridLayout {
                 mDateView.setPadding(40,20,40,20);
                 break;
             case 3: // white outline
+                mDateView.setVisibility(showDate ? View.VISIBLE : View.GONE);
                 mDateView.setBackground(getResources().getDrawable(R.drawable.date_box_border_outline));
                 mDateView.setPadding(40,20,40,20);
                 break;
             case 4: // white outline (round)
+                mDateView.setVisibility(showDate ? View.VISIBLE : View.GONE);
                 mDateView.setBackground(getResources().getDrawable(R.drawable.date_border_outline));
                 mDateView.setPadding(40,20,40,20);
                 break;
             case 5: // black outline
+                mDateView.setVisibility(showDate ? View.VISIBLE : View.GONE);
                 mDateView.setBackground(getResources().getDrawable(R.drawable.date_box_border_outline_black));
                 mDateView.setPadding(40,20,40,20);
                 break;
             case 6: // black outline (round)
+                mDateView.setVisibility(showDate ? View.VISIBLE : View.GONE);
                 mDateView.setBackground(getResources().getDrawable(R.drawable.date_border_outline_black));
                 mDateView.setPadding(40,20,40,20);
                 break;
             case 7: // accent outline
+                mDateView.setVisibility(showDate ? View.VISIBLE : View.GONE);
                 mDateView.setBackground(getResources().getDrawable(R.drawable.date_box_border_outline_accent));
                 mDateView.setPadding(40,20,40,20);
                 break;
             case 8: // accent outline (round)
+                mDateView.setVisibility(showDate ? View.VISIBLE : View.GONE);
                 mDateView.setBackground(getResources().getDrawable(R.drawable.date_border_outline_accent));
                 mDateView.setPadding(40,20,40,20);
                 break;
             case 9: // accent box
+                mDateView.setVisibility(showDate ? View.VISIBLE : View.GONE);
                 mDateView.setBackground(getResources().getDrawable(R.drawable.date_str_accent));
                 mDateView.setTypeface(Typeface.DEFAULT);
                 mDateView.setPadding(30,10,30,10);
@@ -522,6 +538,7 @@ public class KeyguardStatusView extends GridLayout {
                 mDateView.setAllCaps(true);
                 break;
             case 10: // accent box but just the day
+                mDateView.setVisibility(showDate ? View.VISIBLE : View.GONE);
                 mDateView.setBackground(getResources().getDrawable(R.drawable.date_str_accent));
                 mDateView.setTypeface(Typeface.DEFAULT);
                 mDateView.setPadding(30,10,30,10);
@@ -537,6 +554,7 @@ public class KeyguardStatusView extends GridLayout {
                 mDateView.setAllCaps(true);
                 break;
             case 12: // accent box transparent but just the day
+                mDateView.setVisibility(showDate ? View.VISIBLE : View.GONE);
                 mDateView.setBackground(getResources().getDrawable(R.drawable.date_str_accent));
                 mDateView.setTypeface(Typeface.DEFAULT);
                 mDateView.getBackground().setAlpha(160);

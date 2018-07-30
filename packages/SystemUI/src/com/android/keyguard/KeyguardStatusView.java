@@ -389,7 +389,7 @@ public class KeyguardStatusView extends GridLayout {
                 mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
                 //mClockView.setLineSpacing(0,1f);
-               mClockView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                mClockView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 mClockView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE : View.GONE) : View.VISIBLE);
                 break;
@@ -413,6 +413,7 @@ public class KeyguardStatusView extends GridLayout {
                 getResources().getDimensionPixelSize(R.dimen.widget_sammy_accent_font_size));
                 mClockView.setLineSpacing(-60f,1f);
                 mAnalogClockView.setVisibility(View.GONE);
+
              case 6: // shishu normal 01
                 mClockView.setBackground(getResources().getDrawable(R.drawable.clock_shishu_normalbg));
                 mClockView.getLayoutParams().width = getResources().getDimensionPixelSize(R.dimen.widget_clock_shishu_size);

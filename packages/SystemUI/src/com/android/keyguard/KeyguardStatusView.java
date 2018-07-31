@@ -406,7 +406,7 @@ public class KeyguardStatusView extends GridLayout {
                 //mClockView.setLineSpacing(0,1f);
                 mClockView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 mClockView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE : View.GONE) : View.VISIBLE);
+                mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
                 break;
             case 4: // sammy accent
                 mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
@@ -603,7 +603,7 @@ public class KeyguardStatusView extends GridLayout {
                 mDateView.setBackground(getResources().getDrawable(R.drawable.date_str_accent));
                 mDateView.setTypeface(Typeface.DEFAULT);
                 mDateView.setPadding(30,10,30,10);
-                mDat eView.setLetterSpacing(0.15f);
+                mDateView.setLetterSpacing(0.15f);
                 mDateView.setAllCaps(true);
                 break;
             case 10: // accent box but just the day

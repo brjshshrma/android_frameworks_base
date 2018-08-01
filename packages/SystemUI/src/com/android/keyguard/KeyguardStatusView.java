@@ -261,7 +261,7 @@ public class KeyguardStatusView extends GridLayout {
 
         refreshTime();
         refreshAlarmStatus(nextAlarm);
-        //updateSettings(false);
+        updatesettings(false);
         refreshLockFont();
     }
 
@@ -315,7 +315,7 @@ public class KeyguardStatusView extends GridLayout {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         KeyguardUpdateMonitor.getInstance(mContext).registerCallback(mInfoCallback);
-        //updateSettings(false);
+        updatesettings(false);
     }
 
     @Override
@@ -660,7 +660,6 @@ public class KeyguardStatusView extends GridLayout {
         public void updateAll() {
         updateSettings();
         refresh();
-        updatesettings();
         updateVisibilities();
     }
 

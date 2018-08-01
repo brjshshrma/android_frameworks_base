@@ -245,7 +245,10 @@ public class KeyguardStatusView extends GridLayout {
         } else if (mClockSelection == 5) {
             mClockView.setFormat12Hour(Html.fromHtml("<font color='#454545'>hh</font><br><font color=" + getResources().getColor(R.color.sammy_minutes_accent) + ">mm</font>"));
             mClockView.setFormat24Hour(Html.fromHtml("<font color='#454545'>kk</font><br><font color=" + getResources().getColor(R.color.sammy_minutes_accent) + ">mm</font>"));
-        } else {
+        } else if (mClockSelection == 7) {
+            mClockView.setFormat12Hour(Html.fromHtml("<strong>hh</strong><font color=" + getResources().getColor(R.color.sammy_minutes_accent) + ">mm</font>"));
+            mClockView.setFormat24Hour(Html.fromHtml("<strong>kk</strong><font color=" + getResources().getColor(R.color.sammy_minutes_accent) + ">mm</font>")); 
+        }  else {
             mClockView.setFormat12Hour("hh\nmm");
             mClockView.setFormat24Hour("kk\nmm");
         }
@@ -441,7 +444,18 @@ public class KeyguardStatusView extends GridLayout {
                 mAnalogClockView.setVisibility(View.GONE);
                // mDeadPoolClockView.setVisibility(View.GONE);
                 break;
-            case 7: // analog
+            case 7: //accent bold
+                mClockView.setBackgroundResource(0);
+                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
+                mClockView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                mClockView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                mClockView.setVisibility(showClock ? View.VISIBLE : View.GONE);
+                mAnalogClockView.setVisibility(View.GONE);
+                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
+                mClockView.setLineSpacing(0,1f);
+            case 8: // analog
                 mClockView.setBackgroundResource(0); 
                 mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
@@ -453,7 +467,7 @@ public class KeyguardStatusView extends GridLayout {
                 getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
                 mClockView.setLineSpacing(0,1f);
                 break;
-            default: // custom analog styles (int > 6)
+            default: // custom analog styles (int > 8)
                 mClockView.setBackgroundResource(0);
                 mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
@@ -529,11 +543,17 @@ public class KeyguardStatusView extends GridLayout {
                 mAnalogClockView.unregisterReceiver();
                // mDeadPoolClockView.unregisterReceiver();
                 break;
-           case 7: // analog
+           case 7: // accent (bold)
+                mAnalogClockView.unregisterReceiver();
+                params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+                mClockView.setSingleLine(true);
+                mClockView.setGravity(Gravity.CENTER);
+                break;
+           case 8: // analog
                 mAnalogClockView.registerReceiver();
                 params.addRule(RelativeLayout.BELOW, R.id.analog_clock_view);
                 break;
-           default: // custom analog styles (int > 6)
+           default: // custom analog styles (int > 8)
                 params.addRule(RelativeLayout.BELOW, R.id.analog_clock_view);
                 mAnalogClockView.registerReceiver();
                 break;
@@ -640,16 +660,18 @@ public class KeyguardStatusView extends GridLayout {
         public void updateAll() {
         updateSettings();
         refresh();
+        updatesettings();
+        updateVisibilities();
     }
 
-/**    private void updateSettings(boolean forceHide) {
+     private void updatesettings(boolean forceHide) {
         final ContentResolver resolver = getContext().getContentResolver();
         final Resources res = getContext().getResources();
         AlarmManager.AlarmClockInfo nextAlarm =
                 mAlarmManager.getNextAlarmClock(UserHandle.USER_CURRENT);
         boolean showAlarm = Settings.System.getIntForUser(resolver,
                 Settings.System.HIDE_LOCKSCREEN_ALARM, 1, UserHandle.USER_CURRENT) == 1;
-        boolean showClock = Settings.System.getIntForUser(resolver,
+ /**       boolean showClock = Settings.System.getIntForUser(resolver,
                 Settings.System.HIDE_LOCKSCREEN_CLOCK, 1, UserHandle.USER_CURRENT) == 1;
         boolean showDate = Settings.System.getIntForUser(resolver,
                 Settings.System.HIDE_LOCKSCREEN_DATE, 1, UserHandle.USER_CURRENT) == 1;
@@ -659,10 +681,10 @@ public class KeyguardStatusView extends GridLayout {
 
         mDateView.setVisibility(showDate ? View.VISIBLE : View.GONE);
         mDateView = (DateView) findViewById(R.id.date_view);
-
+**/
         mAlarmStatusView = (TextView) findViewById(R.id.alarm_status);
         mAlarmStatusView.setVisibility(showAlarm && nextAlarm != null ? View.VISIBLE : View.GONE);
-    }***/
+    }
     private void refreshLockFont() {
         final Resources res = getContext().getResources();
         boolean isPrimary = UserHandle.getCallingUserId() == UserHandle.USER_OWNER;

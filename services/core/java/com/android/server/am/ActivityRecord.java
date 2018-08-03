@@ -2315,12 +2315,7 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
     private void computeBounds(Rect outBounds) {
         outBounds.setEmpty();
         final float maxAspectRatio = info.maxAspectRatio;
-    
-    if (service.mWindowManager.isGestureButtonEnabled()) {
-            return;
-        }  
-
-    final ActivityStack stack = getStack();
+        final ActivityStack stack = getStack();
         if (task == null || stack == null || !task.mFullscreen || maxAspectRatio == 0
                 || isInVrUiMode(getConfiguration())) {
             // We don't set override configuration if that activity task isn't fullscreen. I.e. the

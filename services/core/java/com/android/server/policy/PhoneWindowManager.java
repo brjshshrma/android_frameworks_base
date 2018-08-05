@@ -2967,7 +2967,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             updateRotation(true);
         }
         
-        if (mUseGestureButton && !mNavbarVisible && !mGestureButtonRegistered) {
+        if (mUseGestureButton && !mHasNavigationBar && !mGestureButtonRegistered) {
             mGestureButton = new GestureButton(mContext, this);
             mWindowManagerFuncs.registerPointerEventListener(mGestureButton);
             mGestureButtonRegistered = true;
@@ -5319,7 +5319,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             if (updateSysUiVisibility) {
                 updateSystemUiVisibilityLw();
             }
-            if (!mNavbarVisible && mUseGestureButton && mGestureButton != null) {
+            if (!mHasNavigationBar && mUseGestureButton && mGestureButton != null) {
                 mGestureButton.navigationBarPosition(displayWidth, displayHeight, displayRotation);
             }
         }

@@ -89,7 +89,7 @@ public class OmniUtils {
         }, 20);
     }
 
-    public static void takeScreenshot(boolean full) {
+   /** public static void takeScreenshot(boolean full) {
         IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
         try {
             wm.sendCustomAction(new Intent(full? INTENT_SCREENSHOT : INTENT_REGION_SCREENSHOT));
@@ -105,7 +105,7 @@ public class OmniUtils {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-    }
+    } **/
 
     public static void goToSleep(Context context) {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);

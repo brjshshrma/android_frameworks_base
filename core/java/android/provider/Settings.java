@@ -4083,12 +4083,6 @@ public final class Settings {
          */
         public static final String STATUSBAR_CLOCK_STYLE = "statusbar_clock_style";
 
-        /**
-         * Whether to show the notification ticker on the status bar
-         * @hide
-         */
-        public static final String STATUS_BAR_SHOW_TICKER = "status_bar_show_ticker";
-
         /** @hide */
         public static final Validator STATUSBAR_CLOCK_STYLE_VALIDATOR =
                 new InclusiveIntegerRangeValidator(0, 2);

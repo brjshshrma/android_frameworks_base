@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress AndroidUnknownAttribute -->
+<vector xmlns:api24="http://schemas.android.com/apk/res/android" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:viewportWidth="700"
+    android:viewportHeight="300"
+    android:width="290dp"
+    android:height="125dp">
+
+    <path
+        android:pathData="M393.346 294.841L220.479 104.944 471.367 50.187Z"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.5"
+        android:strokeMiterLimit="10"
+        android:strokeColor="?android:attr/colorAccent" />
+    <path
+        android:pathData="M380.169 294.655L222.545 91.929 476.923 56.785Z"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.46"
+        android:strokeMiterLimit="10"
+        android:strokeColor="?android:attr/colorAccent" />
+    <path
+        android:pathData="M362.54 292.797L226.904 74.746 483.559 66.307Z"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.42"
+        android:strokeMiterLimit="10"
+        android:strokeColor="?android:attr/colorAccent" />
+    <path
+        android:pathData="M346.264 289.392L232.599 59.124 488.85 75.821Z"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.3800002"
+        android:strokeMiterLimit="10"
+        android:strokeColor="?android:attr/colorAccent" />
+    <path
+        android:pathData="M330.768 284.548L239.608 44.478 493.093 85.566Z"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.3400002"
+        android:strokeMiterLimit="10"
+        android:strokeColor="?android:attr/colorAccent" />
+    <path
+        android:pathData="M314.43 277.963L247.56 30.028 495.712 96.083Z"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.3"
+        android:strokeMiterLimit="10"
+        android:strokeColor="?android:attr/colorAccent" />
+    <path
+        android:pathData="M301.368 270.93L256.388 18.105 497.829 105.563Z"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.26"
+        android:strokeMiterLimit="10"
+        android:strokeColor="?android:attr/colorAccent" />
+    <path
+        android:pathData="M289.055 262.845L266.148 7.074 499.104 115.121Z"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.22"
+        android:strokeMiterLimit="10"
+        android:strokeColor="?android:attr/colorAccent" />
+</vector>

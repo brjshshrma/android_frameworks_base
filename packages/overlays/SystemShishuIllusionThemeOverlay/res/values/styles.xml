@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Theme.DeviceDefault.QuickSettings" parent="@*android:style/Theme.DeviceDefault">
         <item name="android:colorPrimary">@*android:color/black</item>
         <item name="android:colorPrimaryDark">@*android:color/black</item>
@@ -19,6 +20,7 @@
         <item name="android:colorControlNormal">@*android:color/accent_device_default_dark</item>
         <item name="android:navigationBarColor">@*android:color/black</item>
         <item name="android:textColorPrimaryInverse">@*android:color/black</item>
+        <item name="android:windowBackground">@*android:drawable/bootleg_fwrecycledraw01</item>
     </style>
     <style name="Theme.DeviceDefault.SearchBar" parent="@*android:style/Theme.Material.SearchBar">
         <item name="android:colorPrimary">@*android:color/black</item>
@@ -61,6 +63,7 @@
         <item name="android:colorAccent">@*android:color/accent_device_default_dark</item>
         <item name="android:colorBackground">@*android:color/black</item>
     </style>
+
     <style name="Theme.DeviceDefault.QuickSettings.Dialog" parent="@*android:style/Theme.DeviceDefault.Dialog">
         <item name="android:colorPrimary">@*android:color/black</item>
         <item name="android:colorPrimaryDark">@*android:color/black</item>

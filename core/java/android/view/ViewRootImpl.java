@@ -7203,7 +7203,7 @@ public final class ViewRootImpl implements ViewParent,
 
     public void dispatchDragEvent(DragEvent event) {
         final int what;
-        if (event.getAction() == DragEvent.ACTION_DRAG_LOCATION) {
+        if (event.get() == DragEvent.ACTION_DRAG_LOCATION) {
             what = MSG_DISPATCH_DRAG_LOCATION_EVENT;
             mHandler.removeMessages(what);
         } else {

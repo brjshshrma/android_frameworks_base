@@ -7742,10 +7742,11 @@ public class WindowManagerService extends IWindowManager.Stub
         mRoot.forAllWindows((w) -> {
             w.setForceHideNonSystemOverlayWindowIfNeeded(hideSystemAlertWindows);
         }, false /* traverseTopToBottom */);
-        
+
+       }        
+
         public boolean isGestureButtonEnabled() {
-        return this.mPolicy.isGestureButtonEnabled();
-    }  
+        return this.mPolicy.isGestureButtonEnabled();  
   }
         
 }

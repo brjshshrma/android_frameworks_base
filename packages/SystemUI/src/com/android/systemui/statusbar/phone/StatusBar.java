@@ -286,7 +286,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import lineageos.hardware.LiveDisplayManager;
 import lineageos.providers.LineageSettings;
 
 public class StatusBar extends SystemUI implements DemoMode,
@@ -1027,12 +1026,6 @@ public class StatusBar extends SystemUI implements DemoMode,
                 Settings.Secure.getUriFor(Settings.Secure.LOCK_SCREEN_ALLOW_PRIVATE_NOTIFICATIONS),
                 true,
                 mLockscreenSettingsObserver,
-                UserHandle.USER_ALL);
-
-        mContext.getContentResolver().registerContentObserver(
-                LineageSettings.System.getUriFor(LineageSettings.System.BERRY_GLOBAL_STYLE),
-                true,
-                mThemeSettingsObserver,
                 UserHandle.USER_ALL);
 
         mBarService = IStatusBarService.Stub.asInterface(
@@ -3228,26 +3221,14 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     public boolean isUsingDarkTheme() {
-        OverlayInfo systemuiThemeInfo = null;
+        OverlayInfo themeInfo = null;
         try {
-            systemuiThemeInfo = mOverlayManager.getOverlayInfo("org.lineageos.overlay.dark",
+            themeInfo = mOverlayManager.getOverlayInfo("com.android.systemui.theme.dark",
                     mCurrentUserId);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return systemuiThemeInfo != null && systemuiThemeInfo.isEnabled();
-    }
-
-    private boolean isLiveDisplayNightModeOn() {
-        // SystemUI is initialized before LiveDisplay, so the service may not
-        // be ready when this is called the first time
-        LiveDisplayManager manager = LiveDisplayManager.getInstance(mContext);
-        try {
-            return manager.isNightModeEnabled();
-        } catch (NullPointerException e) {
-            Log.w(TAG, e.getMessage());
-        }
-        return false;
+        return themeInfo != null && themeInfo.isEnabled();
     }
 
     @Nullable
@@ -5216,32 +5197,21 @@ public class StatusBar extends SystemUI implements DemoMode,
     protected void updateTheme() {
         final boolean inflated = mStackScroller != null;
 
-        // 0 = auto, 1 = time-based, 2 = light, 3 = dark
-        final int globalStyleSetting = LineageSettings.System.getInt(mContext.getContentResolver(),
-                LineageSettings.System.BERRY_GLOBAL_STYLE, 0);
-        WallpaperColors systemColors = mColorExtractor
-                .getWallpaperColors(WallpaperManager.FLAG_SYSTEM);
-        final boolean useDarkTheme;
-
-        switch (globalStyleSetting) {
-            case 1:
-                useDarkTheme = isLiveDisplayNightModeOn();
-                break;
-            case 2:
-                useDarkTheme = false;
-                break;
-            case 3:
-                useDarkTheme = true;
-                break;
-            default:
-                useDarkTheme = systemColors != null && (systemColors.getColorHints() &
-                        WallpaperColors.HINT_SUPPORTS_DARK_THEME) != 0;
-                break;
+        int userThemeSetting = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.SYSTEM_THEME_STYLE, 0, mCurrentUserId);
+        boolean useDarkTheme = false;
+        if (userThemeSetting == 0) {
+            // The system wallpaper defines if QS should be light or dark.
+            WallpaperColors systemColors = mColorExtractor
+                    .getWallpaperColors(WallpaperManager.FLAG_SYSTEM);
+            useDarkTheme = systemColors != null
+                    && (systemColors.getColorHints() & WallpaperColors.HINT_SUPPORTS_DARK_THEME) != 0;
+        } else {
+            useDarkTheme = userThemeSetting == 2;
         }
-
         if (isUsingDarkTheme() != useDarkTheme) {
             try {
-                mOverlayManager.setEnabled("org.lineageos.overlay.dark",
+                mOverlayManager.setEnabled("com.android.systemui.theme.dark",
                         useDarkTheme, mCurrentUserId);
             } catch (RemoteException e) {
                 Log.w(TAG, "Can't change theme", e);
@@ -6447,13 +6417,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     };
 
-    protected final ContentObserver mThemeSettingsObserver = new ContentObserver(mHandler) {
-        @Override
-        public void onChange(boolean selfChange) {
-            updateTheme();
-        }
-    };
-
     private final ContentObserver mLockscreenSettingsObserver = new ContentObserver(mHandler) {
         @Override
         public void onChange(boolean selfChange) {
@@ -6528,6 +6491,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_DATE_SELECTION),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.SYSTEM_THEME_STYLE),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -6575,6 +6541,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             setHeadsUpStoplist();
             setHeadsUpBlacklist();
             updateKeyguardStatusSettings();
+            updateTheme();
         }
     }
  

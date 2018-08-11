@@ -4740,7 +4740,7 @@ public final class ViewRootImpl implements ViewParent,
 
             // Enter touch mode on down or scroll, if it is coming from a touch screen device,
             // exit otherwise.
-            final int action = event.getAction();
+            action = event.getAction();
             if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_SCROLL) {
                 ensureTouchMode(event.isFromSource(InputDevice.SOURCE_TOUCHSCREEN));
             }
@@ -7203,7 +7203,7 @@ public final class ViewRootImpl implements ViewParent,
 
     public void dispatchDragEvent(DragEvent event) {
         final int what;
-        if (event.get() == DragEvent.ACTION_DRAG_LOCATION) {
+        if (event.getAction() == DragEvent.ACTION_DRAG_LOCATION) {
             what = MSG_DISPATCH_DRAG_LOCATION_EVENT;
             mHandler.removeMessages(what);
         } else {

@@ -3275,6 +3275,17 @@ public class StatusBar extends SystemUI implements DemoMode,
         return themeInfo != null && themeInfo.isEnabled();
     }
 
+     public boolean isUsingNeoTheme() {
+        OverlayInfo themeInfo = null;
+        try {
+            themeInfo = mOverlayManager.getOverlayInfo("com.android.system.theme.neo",
+                    mCurrentUserId);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return themeInfo != null && themeInfo.isEnabled();
+    }
+
     @Nullable
     public View getAmbientIndicationContainer() {
         return mAmbientIndicationContainer;
@@ -5243,8 +5254,11 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         int userThemeSetting = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.SYSTEM_THEME_STYLE, 0, mCurrentUserId);
+             
         boolean useShishuTheme = false;
         boolean useShishuNightsTheme = false;
+        boolean useShishuIllusionTheme = false;
+        boolean useNeoTheme = false;
         boolean useBlackTheme = false;
         boolean useDarkTheme = false;
         if (userThemeSetting == 0) {
@@ -5259,7 +5273,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             useShishuTheme = userThemeSetting == 4;
             useShishuNightsTheme = userThemeSetting == 5;
             useShishuIllusionTheme = userThemeSetting == 6;
-        }
+            useNeoTheme = userThemeSetting == 7;
+
+         }
         if (isUsingDarkTheme() != useDarkTheme) {
             try {
                 mOverlayManager.setEnabled("com.android.system.theme.dark",
@@ -5316,6 +5332,20 @@ public class StatusBar extends SystemUI implements DemoMode,
                 Log.w(TAG, "Can't change theme", e);
             }
         }
+
+         if (isUsingNeoTheme() != useNeoTheme) {
+            try {
+                mOverlayManager.setEnabled("com.android.system.theme.neo",
+                        useNeoTheme, mCurrentUserId);
+                mOverlayManager.setEnabled("com.android.systemui.theme.neo",
+                        useNeoTheme, mCurrentUserId);
+                mOverlayManager.setEnabled("com.android.settings.theme.neo",
+                        useNeoTheme, mCurrentUserId);
+            } catch (RemoteException e) {
+                Log.w(TAG, "Can't change theme", e);
+            }
+        }
+
 
         // Lock wallpaper defines the color of the majority of the views, hence we'll use it
         // to set our default theme.

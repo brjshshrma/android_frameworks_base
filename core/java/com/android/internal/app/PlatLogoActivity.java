@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2010 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.android.internal.app;
 
 import android.animation.Animator;
@@ -53,7 +37,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 public class PlatLogoActivity extends Activity {
-    public static final boolean FINISH = true;
+    public static final boolean REVEAL_THE_NAME = false;
+    public static final boolean FINISH = false;
 
     FrameLayout mLayout;
     int mTapCount;
@@ -84,18 +69,15 @@ public class PlatLogoActivity extends Activity {
         im.setAlpha(0f);
 
         im.setBackground(new RippleDrawable(
-                ColorStateList.valueOf(0xFF776677),
+                ColorStateList.valueOf(0xFFFFFFFF),
                 getDrawable(com.android.internal.R.drawable.platlogo),
                 null));
-        im.setOutlineProvider(new ViewOutlineProvider() {
-            @Override
-            public void getOutline(View view, Outline outline) {
-                final int w = view.getWidth();
-                final int h = view.getHeight();
-                outline.setOval((int)(w*.125), (int)(h*.125), (int)(w*.96), (int)(h*.96));
-            }
-        });
-        im.setElevation(12f*dp);
+//        im.setOutlineProvider(new ViewOutlineProvider() {
+//            @Override
+//            public void getOutline(View view, Outline outline) {
+//                outline.setOval(0, 0, view.getWidth(), view.getHeight());
+//            }
+//        });
         im.setClickable(true);
         im.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +86,18 @@ public class PlatLogoActivity extends Activity {
                     @Override
                     public boolean onLongClick(View v) {
                         if (mTapCount < 5) return false;
+
+                        if (REVEAL_THE_NAME) {
+                            final Drawable overlay = getDrawable(
+                                com.android.internal.R.drawable.platlogo_m);
+                            overlay.setBounds(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+                            im.getOverlay().clear();
+                            im.getOverlay().add(overlay);
+                            overlay.setAlpha(0);
+                            ObjectAnimator.ofInt(overlay, "alpha", 0, 255)
+                                .setDuration(500)
+                                .start();
+                        }
 
                         final ContentResolver cr = getContentResolver();
                         if (Settings.System.getLong(cr, Settings.System.EGG_MODE, 0)
